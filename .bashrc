@@ -109,7 +109,7 @@ source $OSH/oh-my-bash.sh
 
 # Functions
 
-source $HOME/Scripts/custom.sh
+source $HOME/Scripts/functions.sh
 
 # asdf
 
