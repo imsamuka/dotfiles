@@ -111,7 +111,7 @@ source $OSH/oh-my-bash.sh
 
 source $HOME/Scripts/functions.sh
 
-# asdf
+# asdf Shims
 
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
