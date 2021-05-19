@@ -460,7 +460,7 @@
       <focus>yes</focus>
     </application>
 
-    <application class="vlc">
+    <application role="vlc-main">
       <position force="yes">
         <x>center</x>
         <y>center</y>
