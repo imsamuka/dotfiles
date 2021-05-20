@@ -105,17 +105,28 @@ source $OSH/oh-my-bash.sh
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
 
-# Custom from .bashrc
+#########    Personal Options    #########
+
+
+
+### Sourcing
 
 # Functions
-
 source $HOME/Scripts/functions.sh
 
-# asdf
+# asdf - Unified Version Management
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
 
-# Dotfile Management
 
+### Aliases
+
+# Dotfiles Management
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+# Others
+alias ls="exa --no-time --header --icons --color=always --sort=name --group-directories-first"
+alias code='codium'
+
+
