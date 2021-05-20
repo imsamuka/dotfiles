@@ -1,16 +1,8 @@
 # This is my custom functions file
 # It is far from perfect, but have some things i use daily
 
-code ()
-{
-dir=$1
-/usr/share/vscodium-bin/bin/codium "$dir"
-}
-alias vscode='code'
-alias vscodium='code'
+mysum () {
 
-mysum ()
-{
 local NC='\033[0m'
 
 local Yellow='\033[1;33m'
@@ -79,13 +71,12 @@ fi
 }
 
 
-showcolors ()
-{
+showcolors () {
 for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;$i;$a""m\\\e[$x;$i;$a""m\e[0;37;40m "; done; echo; done; done; echo ""
 }
 
-lscolors ()
-{
+lscolors () {
+
 declare -A descriptions=(
     [bd]="block device"
     [ca]="file with capability"
@@ -130,7 +121,6 @@ done
 echo
 }
 
-wacom_pressure ()
-{
+wacom_pressure () {
 sudo evtest /dev/input/event16 | grep -i pressure
 }
