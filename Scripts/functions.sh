@@ -86,38 +86,39 @@ for x in {0..8}; do for i in {30..37}; do for a in {40..47}; do echo -ne "\e[$x;
 
 lscolors ()
 {
+declare -A descriptions=(
+    [bd]="block device"
+    [ca]="file with capability"
+    [cd]="character device"
+    [di]="directory"
+    [do]="door"
+    [ex]="executable file"
+    [fi]="regular file"
+    [ln]="symbolic link"
+    [mh]="multi-hardlink"
+    [mi]="missing file"
+    [no]="normal non-filename text"
+    [or]="orphan symlink"
+    [ow]="other-writable directory"
+    [pi]="named pipe, AKA FIFO"
+    [rs]="reset to no color"
+    [sg]="set-group-ID"
+    [so]="socket"
+    [st]="sticky directory"
+    [su]="set-user-ID"
+    [tw]="sticky and other-writable directory"
+)
+
 IFS=:
 for ls_color in $LS_COLORS; do
     color="${ls_color#*=}"
     type="${ls_color%=*}"
 
-    # Add descriptions for named types.
-    case "$type" in
-    bd) desc="block device" ;;
-    ca) desc="file with capability" ;;
-    cd) desc="character device" ;;
-    di) desc="directory" ;;
-    do) desc="door" ;;
-    ex) desc="executable file" ;;
-    fi) desc="regular file" ;;
-    ln) desc="symbolic link" ;;
-    mh) desc="multi-hardlink" ;;
-    mi) desc="missing file" ;;
-    no) desc="normal non-filename text" ;;
-    or) desc="orphan symlink" ;;
-    ow) desc="other-writable directory" ;;
-    pi) desc="named pipe, AKA FIFO" ;;
-    rs) desc="reset to no color" ;;
-    sg) desc="set-group-ID" ;;
-    so) desc="socket" ;;
-    st) desc="sticky directory" ;;
-    su) desc="set-user-ID" ;;
-    tw) desc="sticky and other-writable directory" ;;
-    *)  desc="" ;;
-    esac
+    # Add description for named types.
+    desc="${descriptions[$type]}"
 
     # Separate each color with a newline.
-    if [[ $color_prev ]] && [[ $color != $color_prev ]]; then
+    if [[ $color_prev ]] && [[ $color != "$color_prev" ]]; then
         echo
     fi
 
