@@ -15,9 +15,9 @@ set_visual() {
 
   # Store the new visual value
   echo "$1" > "$CUR_FILE"
-  
+
   # Set Wallpaper For this
-  ~/Scripts/setWallpaper.sh "$1"
+  "$CUR_PATH/set-wallpaper.sh" "$1"
 
   # Set Theme & UI
   # ( "$VISMOD_DIR/mechanical/theme" && "$VISMOD_DIR/UI" ) &> /dev/null
