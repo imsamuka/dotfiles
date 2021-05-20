@@ -22,5 +22,7 @@
 tint2 &
 
 # Nitrogen - Wallpapers
-nitrogen --restore &
+#nitrogen --restore &
 
+# feh - Wallpapers
+. ~/Scripts/setWallpaper.sh
