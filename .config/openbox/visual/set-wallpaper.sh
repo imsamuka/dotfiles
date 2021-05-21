@@ -1,5 +1,5 @@
-# Get the first argument given OR use "dark" by default
-[[ -z "$1" ]] && QUERY="dark" || QUERY="$1"
+# Get the first argument if given else use "dark" by default
+QUERY=${1:-'dark'}
 
 
 
@@ -26,9 +26,10 @@ awk -F '\0' '{print $3}'`
 
 
 # Exit if found nothing
-[[ -z "$RES" ]] \
-  && echo "No files found starting with '$QUERY' in ~/Images/Wallpapers/**" \
-  && exit 1
+if [[ -z "$RES" ]]; then
+  echo "No files found starting with '$QUERY' in ~/Images/Wallpapers/**"
+  exit 1
+fi
 
 
 

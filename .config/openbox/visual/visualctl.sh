@@ -20,9 +20,10 @@ set_visual() {
 
 
   # Logs
-  [[ "$CUR_MODE" == "$1" ]] \
-    && echo "[visualctl] Restarting visuals from '$CUR_MODE'" \
-    || echo "[visualctl] Changing visuals from '$CUR_MODE' to '$1'"
+  if [[ "$CUR_MODE" == "$1" ]];
+    then echo "[visualctl] Restarting visuals from '$CUR_MODE'";
+    else echo "[visualctl] Changing visuals from '$CUR_MODE' to '$1'";
+  fi
 
 
   # Store the new visual value
