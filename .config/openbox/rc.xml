@@ -116,6 +116,8 @@
     <keybind key="W-BackSpace A-F4"><action name="Close" /></keybind>
     <keybind key="W-r W-space"><action name="Reconfigure"></action></keybind>
     <keybind key="A-F12"><action name="Execute"><command>reboot</command></action></keybind>
+    <keybind key="W-Tab"><action name="Execute"><command>visualctl</command></action></keybind>
+
 
     <!-- Keybindings for running applications -->
 
@@ -155,6 +157,23 @@
     <keybind key="W-Menu"><action name="ShowMenu">
       <menu>client-menu</menu></action></keybind>
 
+    <!-- Resize windows - Note: Multiple small resizes is the most idempotent solution -->
+
+    <keybind key="W-KP_Add W-plus">
+      <action name="ResizeRelative"> <top>1%</top>  <bottom>1%</bottom>  <left>1%</left>  <right>1%</right>  </action>
+      <action name="ResizeRelative"> <top>1%</top>  <bottom>1%</bottom>  <left>1%</left>  <right>1%</right>  </action>
+      <action name="ResizeRelative"> <top>1%</top>  <bottom>1%</bottom>  <left>1%</left>  <right>1%</right>  </action>
+    </keybind>
+
+    <keybind key="W-KP_Subtract W-minus">
+      <action name="ResizeRelative"> <top>-1%</top> <bottom>-1%</bottom> <left>-1%</left> <right>-1%</right> </action>
+      <action name="ResizeRelative"> <top>-1%</top> <bottom>-1%</bottom> <left>-1%</left> <right>-1%</right> </action>
+      <action name="ResizeRelative"> <top>-1%</top> <bottom>-1%</bottom> <left>-1%</left> <right>-1%</right> </action>
+    </keybind>
+
+    <keybind key="W-KP_Decimal">
+      <action name="MoveResizeTo"> <width>180</width> <height>180</height> </action>
+    </keybind>
 
     <!-- Moving windows -->
 
