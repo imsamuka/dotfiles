@@ -73,8 +73,14 @@ set_visual() {
 
 
   # Set Theme & UI
-  print_log "Setting GTK theme: TODO"
+  # print_log "Setting GTK theme: TODO"
   #( "$VISMOD_DIR/mechanical/theme" ) &> /dev/null
+
+
+  # Reconfigure Openbox
+  print_log "Setting Window Manager..."
+  print_log "└─ Reconfiguring Openbox..."
+  openbox --reconfigure
 
 
   # Notify Results to User
