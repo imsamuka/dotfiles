@@ -8,6 +8,27 @@ CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
 
+set_panel(){
+
+
+  # Restart
+  if killall tint2 &> /dev/null;
+    then echo "[visualctl] └─ Restarting Tint2...";
+    else echo "[visualctl] └─ Starting Tint2...";
+  fi
+  tint2 &> /dev/null &
+}
+
+set_notification(){
+
+
+  # Restart
+  if killall dunst &> /dev/null;
+    then echo "[visualctl] └─ Restarting Dunst...";
+    else echo "[visualctl] └─ Starting Dunst...";
+  fi
+  dunst &> /dev/null &
+}
 
 set_visual() {
 
@@ -36,14 +57,24 @@ set_visual() {
   "$CUR_PATH/set-wallpaper.sh" "$1"
 
 
+  # Set Panel
+  echo "[visualctl] Setting Panel..."
+  set_panel
+
+
+  # Set Notification Daemon
+  echo "[visualctl] Setting Notification..."
+  set_notification
+
+
   # Set Theme & UI
   echo "[visualctl] Setting GTK theme: TODO"
-  #( "$VISMOD_DIR/mechanical/theme" && "$VISMOD_DIR/UI" ) &> /dev/null
+  #( "$VISMOD_DIR/mechanical/theme" ) &> /dev/null
 
 
   # Notify Results to User
-  echo "[visualctl] Notifying user: TODO"
-  #notify-send -u low -i "$NOTIF_EYC_MIN_ICON" "Minimal Mode" "Eyecandy Theme enabled"
+  echo "[visualctl] Notifying user..."
+  notify-send -u low -i "#" "Changing Visual Mode" "${1^} Theme enabled"
 
 
   # Exit
@@ -56,6 +87,7 @@ set_visual() {
 case $1 in
 
     # Toggle between configured options
+    test) set -x ;&
     toggle|"")
       [[ $CUR_MODE != *"dark"* ]] && set_visual dark
       [[ $CUR_MODE != *"light"* ]] && set_visual light
