@@ -8,13 +8,17 @@ CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
 
+print_log(){
+  echo "[visualctl] $1" 1>&2
+}
+
 set_panel(){
 
 
   # Restart
   if killall tint2 &> /dev/null;
-    then echo "[visualctl] └─ Restarting Tint2...";
-    else echo "[visualctl] └─ Starting Tint2...";
+    then print_log "└─ Restarting Tint2...";
+    else print_log "└─ Starting Tint2...";
   fi
   tint2 &> /dev/null &
 }
@@ -24,8 +28,8 @@ set_notification(){
 
   # Restart
   if killall dunst &> /dev/null;
-    then echo "[visualctl] └─ Restarting Dunst...";
-    else echo "[visualctl] └─ Starting Dunst...";
+    then print_log "└─ Restarting Dunst...";
+    else print_log "└─ Starting Dunst...";
   fi
   dunst &> /dev/null &
 }
@@ -35,7 +39,7 @@ set_visual() {
 
   # Make sure a visual mode name was given
   if [[ -z "$1" ]]; then
-    echo "[visualctl] Must provide visual mode name" 1>&2
+    print_log "Must provide visual mode name"
     exit 1
   fi
 
@@ -48,43 +52,43 @@ set_visual() {
 
   # Logs
   if [ $RESTARTING == 0 ];
-    then echo "[visualctl] Restarting visuals from '$CUR_MODE'";
-    else echo "[visualctl] Changing visuals from '$CUR_MODE' to '$NEW_MODE'";
+    then print_log "Restarting visuals from '$CUR_MODE'";
+    else print_log "Changing visuals from '$CUR_MODE' to '$NEW_MODE'";
   fi
 
 
   # Set Wallpaper
-  echo "[visualctl] Setting Wallpaper..."
+  print_log "Setting Wallpaper..."
   "$CUR_PATH/set-wallpaper.sh" "$NEW_MODE"
 
 
   # Set Panel
-  echo "[visualctl] Setting Panel..."
+  print_log "Setting Panel..."
   set_panel
 
 
   # Set Notification Daemon
-  echo "[visualctl] Setting Notification..."
+  print_log "Setting Notification..."
   set_notification
 
 
   # Set Theme & UI
-  echo "[visualctl] Setting GTK theme: TODO"
+  print_log "Setting GTK theme: TODO"
   #( "$VISMOD_DIR/mechanical/theme" ) &> /dev/null
 
 
   # Notify Results to User
-  echo "[visualctl] Notifying user..."
+  print_log "Notifying user..."
   notify-send -u low -i "#" "Changing Visual Mode" "${NEW_MODE^} Theme enabled"
 
 
   # Store the new visual value
-  echo "[visualctl] Saving the chosen visual..."
+  print_log "Saving the chosen visual..."
   echo "$NEW_MODE" >| "$CUR_FILE"
 
 
   # Exit
-  echo "[visualctl] Visuals set successfully."
+  print_log "Visuals set successfully."
   exit 0
 }
 
