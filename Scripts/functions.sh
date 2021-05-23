@@ -1,6 +1,12 @@
 # This is my custom functions file
 # It is far from perfect, but have some things i use daily
 
+
+#Which family font a char uses
+whichchar () {
+DISPLAY=:0 FC_DEBUG=4 pango-view --font=monospace -t "$1" | grep family:
+}
+
 mysum () {
 
 local NC='\033[0m'
