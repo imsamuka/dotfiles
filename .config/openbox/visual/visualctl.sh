@@ -47,11 +47,6 @@ set_visual() {
   fi
 
 
-  # Store the new visual value
-  echo "[visualctl] Saving the chosen visual..."
-  echo "$1" >| "$CUR_FILE"
-
-
   # Set Wallpaper
   echo "[visualctl] Setting Wallpaper..."
   "$CUR_PATH/set-wallpaper.sh" "$1"
@@ -75,6 +70,11 @@ set_visual() {
   # Notify Results to User
   echo "[visualctl] Notifying user..."
   notify-send -u low -i "#" "Changing Visual Mode" "${1^} Theme enabled"
+
+
+  # Store the new visual value
+  echo "[visualctl] Saving the chosen visual..."
+  echo "$1" >| "$CUR_FILE"
 
 
   # Exit
