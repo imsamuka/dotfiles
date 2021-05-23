@@ -40,16 +40,22 @@ set_visual() {
   fi
 
 
+  # Initialize Local Variables
+  NEW_MODE="$1"
+    test "$NEW_MODE" == "$CUR_MODE"
+  RESTARTING=$?
+
+
   # Logs
-  if [[ "$CUR_MODE" == "$1" ]];
+  if [ $RESTARTING == 0 ];
     then echo "[visualctl] Restarting visuals from '$CUR_MODE'";
-    else echo "[visualctl] Changing visuals from '$CUR_MODE' to '$1'";
+    else echo "[visualctl] Changing visuals from '$CUR_MODE' to '$NEW_MODE'";
   fi
 
 
   # Set Wallpaper
   echo "[visualctl] Setting Wallpaper..."
-  "$CUR_PATH/set-wallpaper.sh" "$1"
+  "$CUR_PATH/set-wallpaper.sh" "$NEW_MODE"
 
 
   # Set Panel
@@ -69,12 +75,12 @@ set_visual() {
 
   # Notify Results to User
   echo "[visualctl] Notifying user..."
-  notify-send -u low -i "#" "Changing Visual Mode" "${1^} Theme enabled"
+  notify-send -u low -i "#" "Changing Visual Mode" "${NEW_MODE^} Theme enabled"
 
 
   # Store the new visual value
   echo "[visualctl] Saving the chosen visual..."
-  echo "$1" >| "$CUR_FILE"
+  echo "$NEW_MODE" >| "$CUR_FILE"
 
 
   # Exit
