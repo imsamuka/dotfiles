@@ -12,6 +12,12 @@ print_log(){
 }
 
 
+change_config(){
+  # USAGE: change_config Path Key Value
+  sed -s -i "s/\($2 \?=\).*/\1 $3/" $1;
+}
+
+
 set_theme(){
 
   # Initialize Local Variables
