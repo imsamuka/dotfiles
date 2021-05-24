@@ -31,7 +31,10 @@ set_theme(){
          -d "$HOME/.local/share/themes/$NEW_THEME" || \
          -d "$HOME/.themes/$NEW_THEME" ]];
     then print_log "├─ Applying Theme '$NEW_THEME'.";
-      # TODO
+
+      change_config "$GTK2_CONFIG" "gtk-theme-name" "\"$NEW_THEME\""
+      change_config "$GTK3_CONFIG" "gtk-theme-name" "$NEW_THEME"
+
     else print_log "├─ Theme '$NEW_THEME' not found. No Changes.";
   fi
 
@@ -42,7 +45,10 @@ set_theme(){
          -d "$HOME/.local/share/icons/$NEW_ICONS" || \
          -d "$HOME/.icons/$NEW_ICONS" ]];
     then print_log "├─ Applying Icons '$NEW_ICONS'.";
-      # TODO
+
+      change_config "$GTK2_CONFIG" "gtk-icon-theme-name" "\"$NEW_ICONS\""
+      change_config "$GTK3_CONFIG" "gtk-icon-theme-name" "$NEW_ICONS"
+
     else print_log "├─ Icons '$NEW_ICONS' not found. No Changes.";
   fi
 
@@ -53,7 +59,10 @@ set_theme(){
          -d "$HOME/.local/share/icons/$NEW_CURSOR/cursors" || \
          -d "$HOME/.icons/$NEW_CURSOR/cursors" ]];
     then print_log "└─ Applying Cursor '$NEW_CURSOR'.";
-      # TODO
+
+      change_config "$GTK2_CONFIG" "gtk-cursor-theme-name" "\"$NEW_CURSOR\""
+      change_config "$GTK3_CONFIG" "gtk-cursor-theme-name" "$NEW_CURSOR"
+
     else print_log "└─ Cursor '$NEW_CURSOR' not found. No Changes.";
   fi
 }
