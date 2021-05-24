@@ -12,6 +12,47 @@ print_log(){
 }
 
 
+set_theme(){
+
+  # Initialize Local Variables
+  local GTK2_CONFIG="$HOME/.gtkrc-2.0"
+  local GTK3_CONFIG="$HOME/.config/gtk-3.0/settings.ini"
+
+
+  # Set Theme
+  if  [[ -n $NEW_THEME ]] && \
+      [[ -d "/usr/share/themes/$NEW_THEME" || \
+         -d "$HOME/.local/share/themes/$NEW_THEME" || \
+         -d "$HOME/.themes/$NEW_THEME" ]];
+    then print_log "├─ Applying Theme '$NEW_THEME'.";
+      # TODO
+    else print_log "├─ Theme '$NEW_THEME' not found. No Changes.";
+  fi
+
+
+  # Set Icons
+  if  [[ -n $NEW_ICONS ]] && \
+      [[ -d "/usr/share/icons/$NEW_ICONS" || \
+         -d "$HOME/.local/share/icons/$NEW_ICONS" || \
+         -d "$HOME/.icons/$NEW_ICONS" ]];
+    then print_log "├─ Applying Icons '$NEW_ICONS'.";
+      # TODO
+    else print_log "├─ Icons '$NEW_ICONS' not found. No Changes.";
+  fi
+
+
+  # Set Cursor
+  if  [[ -n $NEW_CURSOR ]] && \
+      [[ -d "/usr/share/icons/$NEW_CURSOR/cursors" || \
+         -d "$HOME/.local/share/icons/$NEW_CURSOR/cursors" || \
+         -d "$HOME/.icons/$NEW_CURSOR/cursors" ]];
+    then print_log "└─ Applying Cursor '$NEW_CURSOR'.";
+      # TODO
+    else print_log "└─ Cursor '$NEW_CURSOR' not found. No Changes.";
+  fi
+}
+
+
 set_panel(){
 
   # Restart
@@ -40,6 +81,8 @@ set_visual() {
   NEW_MODE=${1:?"Must provide visual mode name"}
     test "$NEW_MODE" == "$CUR_MODE"
   RESTARTING=$?
+  test -f "$CUR_PATH/$NEW_MODE" && \
+    source "$CUR_PATH/$NEW_MODE"
 
 
   # Logs
@@ -64,9 +107,9 @@ set_visual() {
   set_notification
 
 
-  # Set Theme & UI
-  # print_log "Setting GTK theme: TODO"
-  #( "$VISMOD_DIR/mechanical/theme" ) &> /dev/null
+  # Set Theme
+  print_log "Setting Theme..."
+  set_theme
 
 
   # Reconfigure Openbox
