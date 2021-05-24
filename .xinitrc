@@ -1,11 +1,12 @@
 
 # Disable Blanking
-xset s off && xset -dpms
+xset s off
+xset -dpms
 
 # Temporary Solution to Internet Connection
 (
-iwctl station wlan0 scan &&
-sleep 5 &&
+iwctl station wlan0 scan
+sleep 5
 iwctl station wlan0 connect "BMT 08"
 ) &
 
