@@ -9,7 +9,7 @@ CUR_FILE="$CUR_PATH/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
 
 print_log(){
-  echo "[visualctl] $1" 1>&2
+  echo "[visualctl] $1"
 }
 
 set_panel(){
@@ -39,7 +39,7 @@ set_visual() {
 
   # Make sure a visual mode name was given
   if [[ -z "$1" ]]; then
-    print_log "Must provide visual mode name"
+    print_log "Must provide visual mode name" 1>&2
     exit 1
   fi
 
