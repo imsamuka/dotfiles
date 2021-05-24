@@ -1,3 +1,6 @@
+# Search for a Xorg Display
+test -z $DISPLAY && echo "[set-wallpaper] Couldn't find a Display." && exit 1
+
 # Get the first argument if given else use "dark" by default
 QUERY=${1:-'dark'}
 

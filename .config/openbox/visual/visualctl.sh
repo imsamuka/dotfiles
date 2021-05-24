@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-#set -x
-
 
 
 # Initialize variables and functions
@@ -8,12 +6,13 @@ CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
 
+
 print_log(){
   echo "[visualctl] $1"
 }
 
-set_panel(){
 
+set_panel(){
 
   # Restart
   if killall tint2 &> /dev/null;
@@ -23,8 +22,8 @@ set_panel(){
   tint2 &> /dev/null &
 }
 
-set_notification(){
 
+set_notification(){
 
   # Restart
   if killall dunst &> /dev/null;
@@ -34,8 +33,8 @@ set_notification(){
   dunst &> /dev/null &
 }
 
-set_visual() {
 
+set_visual() {
 
   # Initialize Local Variables
   NEW_MODE=${1:?"Must provide visual mode name"}
@@ -78,7 +77,7 @@ set_visual() {
 
   # Notify Results to User
   print_log "Notifying user..."
-  notify-send -u low -i "#" "Changing Visual Mode" "${NEW_MODE^} Theme enabled"
+  notify-send -u low -i "#" "Changing Visual Mode" "${NEW_MODE^} Theme enabled" &> /dev/null &
 
 
   # Store the new visual value
@@ -92,6 +91,11 @@ set_visual() {
 }
 
 
+# Search for a Xorg Display
+test -z $DISPLAY && print_log "Couldn't find a Display." && exit 1
+
+
+# Select the use case
 case $1 in
 
     # Toggle between configured options
