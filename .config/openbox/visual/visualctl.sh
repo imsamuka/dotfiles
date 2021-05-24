@@ -37,15 +37,8 @@ set_notification(){
 set_visual() {
 
 
-  # Make sure a visual mode name was given
-  if [[ -z "$1" ]]; then
-    print_log "Must provide visual mode name" 1>&2
-    exit 1
-  fi
-
-
   # Initialize Local Variables
-  NEW_MODE="$1"
+  NEW_MODE=${1:?"Must provide visual mode name"}
     test "$NEW_MODE" == "$CUR_MODE"
   RESTARTING=$?
 
@@ -97,7 +90,6 @@ set_visual() {
   print_log "Visuals set successfully."
   exit 0
 }
-
 
 
 case $1 in
