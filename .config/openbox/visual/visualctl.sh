@@ -56,6 +56,7 @@ set_theme(){
   # Initialize Local Variables
   local GTK2_CONFIG="$HOME/.gtkrc-2.0"
   local GTK3_CONFIG="$HOME/.config/gtk-3.0/settings.ini"
+  local XSETTINGSD_CONFIG="$HOME/.xsettingsd"
 
 
   # Set Theme
@@ -67,6 +68,7 @@ set_theme(){
 
       change_config "$GTK2_CONFIG" "gtk-theme-name" "\"$NEW_THEME\""
       change_config "$GTK3_CONFIG" "gtk-theme-name" "$NEW_THEME"
+      sed -i '2s_Net/ThemeName.*_Net/ThemeName "'"$NEW_THEME"'"_' $XSETTINGSD_CONFIG
 
     else print_log "├─ Theme '$NEW_THEME' not found. No Changes.";
   fi
@@ -81,6 +83,7 @@ set_theme(){
 
       change_config "$GTK2_CONFIG" "gtk-icon-theme-name" "\"$NEW_ICONS\""
       change_config "$GTK3_CONFIG" "gtk-icon-theme-name" "$NEW_ICONS"
+      sed -i '1s_Net/IconThemeName.*_Net/IconThemeName "'"$NEW_ICONS"'"_' $XSETTINGSD_CONFIG
 
     else print_log "├─ Icons '$NEW_ICONS' not found. No Changes.";
   fi
@@ -91,13 +94,21 @@ set_theme(){
       [[ -d "/usr/share/icons/$NEW_CURSOR/cursors" || \
          -d "$HOME/.local/share/icons/$NEW_CURSOR/cursors" || \
          -d "$HOME/.icons/$NEW_CURSOR/cursors" ]];
-    then print_log "└─ Applying Cursor '$NEW_CURSOR'.";
+    then print_log "├─ Applying Cursor '$NEW_CURSOR'.";
 
       change_config "$GTK2_CONFIG" "gtk-cursor-theme-name" "\"$NEW_CURSOR\""
       change_config "$GTK3_CONFIG" "gtk-cursor-theme-name" "$NEW_CURSOR"
 
-    else print_log "└─ Cursor '$NEW_CURSOR' not found. No Changes.";
+    else print_log "├─ Cursor '$NEW_CURSOR' not found. No Changes.";
   fi
+
+
+  # Restart Xsettingsd
+  if killall xsettingsd &> /dev/null;
+    then print_log "└─ Restarting Xsettingsd...";
+    else print_log "└─ Starting Xsettingsd...";
+  fi
+  xsettingsd &> /dev/null &
 }
 
 
