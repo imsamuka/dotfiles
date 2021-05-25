@@ -5,10 +5,14 @@
 CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
+NOTIFYING=''
 
 
 print_log(){
   echo "[visualctl] $1"
+}
+notify(){
+  NOTIFYING="${NOTIFYING}${1}\n"
 }
 
 
@@ -70,7 +74,9 @@ set_theme(){
       change_config "$GTK3_CONFIG" "gtk-theme-name" "$NEW_THEME"
       sed -i '2s_Net/ThemeName.*_Net/ThemeName "'"$NEW_THEME"'"_' $XSETTINGSD_CONFIG
 
-    else print_log "├─ Theme '$NEW_THEME' not found. No Changes.";
+    else
+      print_log "├─ Theme '$NEW_THEME' not found. No Changes."
+      notify "Theme '$NEW_THEME' not found."
   fi
 
 
@@ -85,7 +91,9 @@ set_theme(){
       change_config "$GTK3_CONFIG" "gtk-icon-theme-name" "$NEW_ICONS"
       sed -i '1s_Net/IconThemeName.*_Net/IconThemeName "'"$NEW_ICONS"'"_' $XSETTINGSD_CONFIG
 
-    else print_log "├─ Icons '$NEW_ICONS' not found. No Changes.";
+    else
+      print_log "├─ Icons '$NEW_ICONS' not found. No Changes."
+      notify "Icons '$NEW_ICONS' not found."
   fi
 
 
@@ -154,7 +162,10 @@ set_visual() {
   # Set Wallpaper
   print_log "Setting Wallpaper..."
   "$CUR_PATH/set-wallpaper.sh" "$NEW_MODE"
-
+  case $? in
+    1) notify "Failed to set wallpaper";;
+    2) notify "No wallpapers found";;
+  esac
 
   # Set Panel
   print_log "Setting Panel..."
@@ -179,7 +190,7 @@ set_visual() {
 
   # Notify Results to User
   print_log "Notifying user..."
-  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_MODE^} Theme enabled" "" &> /dev/null &
+  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_MODE^} Theme enabled" "$NOTIFYING" &> /dev/null &
 
 
   # Store the new visual value
