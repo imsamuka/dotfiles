@@ -30,8 +30,8 @@ awk -F '\0' '{print $3}'`
 
 # Exit if found nothing
 if [[ -z "$RES" ]]; then
-  echo "No files found starting with '$QUERY' in ~/Images/Wallpapers/**"
-  exit 1
+  echo "[set-wallpaper] No files found starting with '$QUERY' in ~/Images/Wallpapers/**"
+  exit 2
 fi
 
 
