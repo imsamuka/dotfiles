@@ -89,20 +89,6 @@ set_theme(){
   fi
 
 
-  # Set Cursor
-  if  [[ -n $NEW_CURSOR ]] && \
-      [[ -d "/usr/share/icons/$NEW_CURSOR/cursors" || \
-         -d "$HOME/.local/share/icons/$NEW_CURSOR/cursors" || \
-         -d "$HOME/.icons/$NEW_CURSOR/cursors" ]];
-    then print_log "├─ Applying Cursor '$NEW_CURSOR'.";
-
-      change_config "$GTK2_CONFIG" "gtk-cursor-theme-name" "\"$NEW_CURSOR\""
-      change_config "$GTK3_CONFIG" "gtk-cursor-theme-name" "$NEW_CURSOR"
-
-    else print_log "├─ Cursor '$NEW_CURSOR' not found. No Changes.";
-  fi
-
-
   # Restart Xsettingsd
   if killall xsettingsd &> /dev/null;
     then print_log "└─ Restarting Xsettingsd...";
