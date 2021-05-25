@@ -167,6 +167,12 @@ set_visual() {
     2) notify "No wallpapers found";;
   esac
 
+
+  # Set Theme
+  print_log "Setting Theme..."
+  set_theme
+
+
   # Set Panel
   print_log "Setting Panel..."
   set_panel
@@ -177,12 +183,7 @@ set_visual() {
   set_notification
 
 
-  # Set Theme
-  print_log "Setting Theme..."
-  set_theme
-
-
-  # Reconfigure Openbox
+  # Set Window Manager
   print_log "Setting Window Manager..."
   print_log "└─ Reconfiguring Openbox..."
   openbox --reconfigure
