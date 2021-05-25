@@ -100,29 +100,43 @@ set_theme(){
 
 set_panel(){
 
-  # Restart
+  # Kill Tint2
   if killall tint2 &> /dev/null;
-    then print_log "└─ Restarting Tint2...";
-    else print_log "└─ Starting Tint2...";
+    then print_log "├─ Restarting Tint2...";
+    else print_log "├─ Starting Tint2...";
   fi
-  tint2 &> /dev/null &
+
+  # Open Tint2
+  if [[ -f "$HOME/.config/tint2/$NEW_MODE.tint2rc" ]]
+    then print_log "└─ Opening Tint2 with '$NEW_MODE.tint2rc'."
+         tint2 -c "$HOME/.config/tint2/$NEW_MODE.tint2rc" &> /dev/null &
+    else print_log "└─ Opening Tint2 with defaults."
+         tint2 &> /dev/null &
+  fi
 }
 
 
 set_notification(){
 
-  # Restart
+  # Kill Dunst
   if killall dunst &> /dev/null;
-    then print_log "└─ Restarting Dunst...";
-    else print_log "└─ Starting Dunst...";
+    then print_log "├─ Restarting Dunst...";
+    else print_log "├─ Starting Dunst...";
   fi
-  dunst &> /dev/null &
+
+  # Open Dunst
+  if [[ -f "$HOME/.config/dunst/$NEW_MODE.dunstrc" ]]
+    then print_log "└─ Opening Dunst with '$NEW_MODE.dunstrc'."
+         dunst -conf "$HOME/.config/dunst/$NEW_MODE.dunstrc" &> /dev/null &
+    else print_log "└─ Opening Dunst with defaults."
+         dunst &> /dev/null &
+  fi
 }
 
 
 set_visual() {
 
-  # Initialize Local Variables
+  # Initialize Variables
   NEW_MODE=${1:?"Must provide visual mode name"}
     test "$NEW_MODE" == "$CUR_MODE"
   RESTARTING=$?
@@ -165,7 +179,7 @@ set_visual() {
 
   # Notify Results to User
   print_log "Notifying user..."
-  notify-send -u low -i "#" "Changing Visual Mode" "${NEW_MODE^} Theme enabled" &> /dev/null &
+  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_MODE^} Theme enabled" "" &> /dev/null &
 
 
   # Store the new visual value
