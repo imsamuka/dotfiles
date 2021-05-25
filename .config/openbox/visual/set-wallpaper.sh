@@ -48,6 +48,9 @@ echo "[set-wallpaper] Setting Wallpapers..."
 
 
 # Put them in order as backgrounds - Each one will be in a monitor
-feh --bg-fill --no-fehbg $RES \
-  && echo "[set-wallpaper] Wallpapers set successfully." \
-  || echo "[set-wallpaper] Failed setting wallpapers." && exit 1
+feh --bg-fill --no-fehbg $RES
+if [ $? == 0 ];
+  then echo "[set-wallpaper] Wallpapers set successfully."
+  else echo "[set-wallpaper] Failed setting wallpapers."
+       exit 1
+fi
