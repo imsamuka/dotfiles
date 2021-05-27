@@ -189,6 +189,10 @@ set_visual() {
   openbox --reconfigure
 
 
+  # Refresh Terminal
+  killall -USR1 termite &> /dev/null &
+
+
   # Notify Results to User
   print_log "Notifying user..."
   notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_MODE^} Theme enabled" "$NOTIFYING" &> /dev/null &
