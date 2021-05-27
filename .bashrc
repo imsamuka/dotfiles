@@ -126,6 +126,7 @@ source $HOME/.asdf/completions/asdf.bash
 alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
 # Others
+alias paru='paru --skipreview'
 alias ls="exa --no-time --header --icons --color=always --sort=name --group-directories-first"
 alias code='codium'
 
