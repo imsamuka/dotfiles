@@ -18,6 +18,12 @@
 # Lead - Hot corners/sides
 # lead &
 
+# Picom - Window Compositor
+picom -b
+
+# Volctl - System Tray Volume Control
+volctl &
+
 # Tint2 - Bottom bar
 # tint2 &
 
