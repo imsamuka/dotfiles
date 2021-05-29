@@ -155,7 +155,7 @@
     <keybind key="W-Delete"><action name="ToggleShade"/></keybind>
     <keybind key="W-Insert"><action name="ToggleFullscreen"/></keybind>
     <keybind key="W-Prior"><action name="ToggleDecorations"/></keybind>
-    <keybind key="W-Next"><action name="ToggleAlwaysOnTop"/></keybind>
+    <keybind key="W-Next"><action name="ToggleAlwaysOnTop"/><action name="Execute" ><command>notify-send -t 1000 "Toggled Always On Top"</command></action></keybind>
     <keybind key="W-Menu"><action name="ShowMenu">
       <menu>client-menu</menu></action></keybind>
 
