@@ -123,7 +123,7 @@ source $HOME/.asdf/completions/asdf.bash
 ### Aliases
 
 # Dotfiles Management
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+alias dots='/usr/bin/git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 
 # Others
 alias paru='paru --skipreview'
