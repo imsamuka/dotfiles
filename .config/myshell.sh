@@ -23,7 +23,9 @@ alias dots='git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 # Adding default options
 alias paru='paru --skipreview'
 
-# Others
+# Replacements
 alias ls="exa --no-time --header --icons --color=always --sort=name --group-directories-first"
 alias code='codium'
 
+# Simple Functions
+alias freecheck='free -thc 999999 -s 0.3 --si'
