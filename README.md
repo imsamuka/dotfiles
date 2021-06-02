@@ -1,3 +1,41 @@
+## Repository Configuration
+
+The setup used to store my dotfiles was taken from https://www.atlassian.com/git/tutorials/dotfiles. I changed the location to minimize dotfiles in `$HOME`. I also changed the alias from `config` to `dots` to avoid ambiguity like `config config`. If you are doing this for the first time, run:
+
+```bash
+git init --bare $HOME/.config/dotfiles
+echo 'alias dots='"'"'git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'"'"'' >> $HOME/.bashrc
+bash # Apply the alias
+dots config --local status.showUntrackedFiles no
+```
+
+To clone this repository or any repository using this setup, run:
+
+```bash
+git clone --bare https://github.com/imsamuka/dotfiles $HOME/.config/dotfiles
+
+# Then ignore untracked files:
+cd $HOME/.config/dotfiles; git config --local status.showUntrackedFiles no; cd -
+
+# Then run the solution below to ignore README.md files
+
+# Then "Import" all the folders and files:
+git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME checkout
+
+# Then properly add your alias or:
+echo 'source $HOME/.config/myshell.sh' >> $HOME/.bashrc
+```
+
+
+To ignore the README.md from being pulled, I implemented this solution https://stackoverflow.com/a/38408296. Essentially doing this:
+
+```bash
+cd ~/.config/dotfiles
+git config core.sparsecheckout true
+echo '/*' >| ./info/sparse-checkout
+echo '!**/README.md' >> ./info/sparse-checkout
+cd -
+```
 
 ## :computer: **System Information**
 
