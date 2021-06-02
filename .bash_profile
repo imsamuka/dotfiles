@@ -8,6 +8,6 @@ export PATH=$PATH:$HOME/.local/bin
 
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
+  exec startx "/usr/bin/openbox-session"
 fi
 
