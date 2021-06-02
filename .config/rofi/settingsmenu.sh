@@ -3,8 +3,8 @@
 
 
 # Options
-Options=(    'LxAppearance'  'Openbox Theme' 'Tint2 Config.' 'Monitor Config.' 'Monitor Hotplug')
-Executables=('lxappearance'  'obconf'        'tint2conf'     'arandr'          'hotplug_monitor')
+Options=(    'LxAppearance'  'Openbox Theme' 'Tint2 Config.' 'Monitor Config.' 'Monitor Hotplug' 'Save SSH Passphrase')
+Executables=('lxappearance'  'obconf'        'tint2conf'     'arandr'          'hotplug_monitor' 'ssh-add')
 
 
 # Check if the quantity matches
