@@ -93,6 +93,7 @@ set_terminal(){
   # Initialize Local Variables
   local TERMITE_CONFIG="$HOME/.config/termite/config"
   local XRESOURCES_CONFIG="$HOME/.Xresources"
+  local BASHRC="$HOME/.bashrc"
 
 
   # Termite
@@ -158,6 +159,19 @@ set_terminal(){
       # Reload Xresources
       xrdb "$XRESOURCES_CONFIG"
   fi
+
+
+  # Change OhMyBash Theme
+  if [[ -f "$BASHRC" && -n "$OSH_THEME" ]]; then
+    change_config -q "$BASHRC" "OSH_THEME" "$OSH_THEME"
+    if [ $? == 0 ];
+      then print_log "├─ OhMyBash Theme changed."
+      else
+        print_log "├─ OhMyBash Theme didn't change."
+        notify "Didn't change OhMyBash Theme."
+    fi
+  fi
+
 
   # Refresh termite
   print_log "└─ Refreshing Termite."
