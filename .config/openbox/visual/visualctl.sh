@@ -124,6 +124,48 @@ set_panel(){
 }
 
 
+set_terminal(){
+
+  # Initialize Local Variables
+  local TERMITE_CONFIG="$HOME/.config/termite/config"
+  local XRESOURCES_CONFIG="$HOME/.Xresources"
+
+
+  # Termite
+  if [[ -f "$TERMITE_CONFIG" ]]
+    then
+      print_log "├─ Setting Termite Colors."
+      changed=1
+
+      [[ -n "$foreground" ]] \
+        && change_config "$TERMITE_CONFIG" "foreground" "$foreground" \
+        && changed=0
+
+      [[ -n "$background" ]] \
+        && change_config "$TERMITE_CONFIG" "background" "$background" \
+        && changed=0
+
+      for i in color{0..15}; do
+        [[ -n "${!i}" ]] \
+          && change_config "$TERMITE_CONFIG" "$i" "${!i}" \
+          && changed=0
+      done
+
+      # If any 'change_config' results in success, 'changed' will be 0
+      if [ $changed == 0 ];
+        then print_log "└─ Termite Colors changed."
+        else
+          print_log "└─ Termite Colors didn't change."
+          notify "Didn't change Termite colors."
+      fi
+  fi
+
+  # Refresh termite
+  killall -USR1 termite &> /dev/null &
+
+}
+
+
 set_notification(){
 
   # Kill Dunst
@@ -178,6 +220,11 @@ set_visual() {
   set_panel
 
 
+  # Set Terminal
+  print_log "Setting Terminal..."
+  set_terminal
+
+
   # Set Notification Daemon
   print_log "Setting Notification..."
   set_notification
@@ -187,10 +234,6 @@ set_visual() {
   print_log "Setting Window Manager..."
   print_log "└─ Reconfiguring Openbox..."
   openbox --reconfigure
-
-
-  # Refresh Terminal
-  killall -USR1 termite &> /dev/null &
 
 
   # Notify Results to User
