@@ -4,6 +4,13 @@
 # source $HOME/.config/myshell.sh
 
 
+# Theming
+[[ $OSH_THEME == "brunton" ]] && prompt() {
+  PS1="${white}${background_blue} \w ${blue}${reset_color}${normal}$(is_vim_shell) "
+}
+
+
+
 ### Sourcing
 
 # Functions
