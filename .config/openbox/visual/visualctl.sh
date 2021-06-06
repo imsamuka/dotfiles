@@ -117,16 +117,54 @@ set_terminal(){
 
       # If any 'change_config' results in success, 'changed' will be 0
       if [ $changed == 0 ];
-        then print_log "└─ Termite Colors changed."
+        then print_log "├─ Termite Colors changed."
         else
-          print_log "└─ Termite Colors didn't change."
+          print_log "├─ Termite Colors didn't change."
           notify "Didn't change Termite colors."
       fi
   fi
 
+
+  # URxvt
+  # To avoid problems, only lines like '*color3: ...' are changed
+  # 'URxvt.colorX' and 'URxvt*colorX' are ignored
+  if [[ -f "$XRESOURCES_CONFIG" ]]
+    then
+      print_log "├─ Setting URxvt Colors."
+      changed=1
+
+      [[ -n "$foreground" ]] \
+        && change_config -c "$XRESOURCES_CONFIG" "\*foreground" "$foreground" \
+        && changed=0
+
+      [[ -n "$background" ]] \
+        && change_config -c "$XRESOURCES_CONFIG" "\*background" "$background" \
+        && changed=0
+
+      for i in color{0..15}; do
+        [[ -n "${!i}" ]] \
+          && change_config -c "$XRESOURCES_CONFIG" "\*$i" "${!i}" \
+          && changed=0
+      done
+
+      # If any 'change_config' results in success, 'changed' will be 0
+      if [ $changed == 0 ];
+        then print_log "├─ URxvt Colors changed."
+        else
+          print_log "├─ URxvt Colors didn't change."
+          notify "Didn't change URxvt colors."
+      fi
+
+      # Reload Xresources
+      xrdb "$XRESOURCES_CONFIG"
+  fi
+
   # Refresh termite
+  print_log "└─ Refreshing Termite."
   killall -USR1 termite &> /dev/null &
 
+  # Refresh running instances is not possible in vanilla URxvt
+  # A good solution: https://github.com/regnarg/urxvt-config-reload
 }
 
 
