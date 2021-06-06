@@ -14,44 +14,8 @@ print_log(){
 notify(){
   NOTIFYING="${NOTIFYING}${1}\n"
 }
-
-
 change_config(){
-
-  # USAGE: change_config [-q | --quotes] Path Key Value
-  # Will return 5 if not found any match
-
-  if [[ $# -lt 3 ]]
-    then
-      echo "[change_config] Must have 3 or more arguments"
-      return 1
-  fi
-
-  if  [[ "$1" == '-q' || "$1" == '--quotes' ]];
-    then
-      shift # To remove the flag
-
-      # Matching
-      # 1: Is the start of a line or a non-word character (A-z1-9_)
-      # 2: The 'key' argument plus a '=' character
-      # 3: A " or a '
-      # #: Every character until the last same " or ' found
-      local pattern="\(\W\|^\)\($2=\)\(\"\|'\).*\3"
-      local replacement="\1\2\3$3\3"
-    else
-
-      # Matching
-      # 1: Is the start of a line with 0 or more spaces
-      # 2: The 'key' argument, 0 or more spaces,  '=' character
-      # #: Every character until the end of line
-      local pattern="^ *\($2 *=\).*"
-      local replacement="\1$3"
-  fi
-
-  # Run this to see WHAT and IF the replacement is working
-  # sed -s '/'"${pattern}"'/,${s//\x1b[32m&\x1b[0m/;b};$q5' $1
-
-  sed -i -s '/'"${pattern}"'/,${s//'"${replacement}"'/;b};$q5' $1
+  "$CUR_PATH/change_config.sh" "$@"
 }
 
 
