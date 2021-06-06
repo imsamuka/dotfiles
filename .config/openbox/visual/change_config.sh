@@ -3,6 +3,9 @@
 
 # Set Variables
 ao='=' # assignment operator
+KC='\x1b[1;32m' # Key Color
+VC='\x1b[1;31m' # Previous Value Color
+NC='\x1b[0m' # No Color
 
 
 # Usage Help Function
@@ -44,7 +47,7 @@ if [[ $# -ne 3 ]]; then
 fi
 
 
-# Set 'pattern' and 'replacement'
+# Set 'pattern', 'replacement' and 'highlight'
 if [[ "$quotes" == 1 ]];
   then
 
@@ -55,6 +58,7 @@ if [[ "$quotes" == 1 ]];
     # #: Every character until the last same " or ' found
     pattern="\(\W\|^\)\($2$ao\)\(\"\|'\)\(.*\)\3"
     replacement="\1\2\3$3\3"
+    highlight="\1${KC}\2\3${VC}\4${KC}\3"
   else
 
     # Matching
@@ -63,11 +67,12 @@ if [[ "$quotes" == 1 ]];
     # #: Every character until the end of line
     pattern="^\( *\)\($2 *$ao\)\(.*\)"
     replacement="\1\2$3"
+    highlight="\1${KC}\2${VC}\3"
 fi
 
 
 # Execute test or changes
 if [[ "$testing" == 1 ]];
-  then sed -s '/'"${pattern}"'/,${s//\x1b[32m&\x1b[0m/;b};$q5' $1
+  then sed -s '/'"${pattern}"'/,${s/'"${pattern}"'/'${highlight}${NC}'/;b};$q5' $1
   else sed -i -s '/'"${pattern}"'/,${s//'"${replacement}"'/;b};$q5' $1
 fi
