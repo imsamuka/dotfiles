@@ -53,7 +53,7 @@ if [[ "$quotes" == 1 ]];
     # 2: The 'key' argument plus a '=' character
     # 3: A " or a '
     # #: Every character until the last same " or ' found
-    pattern="\(\W\|^\)\($2$ao\)\(\"\|'\).*\3"
+    pattern="\(\W\|^\)\($2$ao\)\(\"\|'\)\(.*\)\3"
     replacement="\1\2\3$3\3"
   else
 
@@ -61,8 +61,8 @@ if [[ "$quotes" == 1 ]];
     # 1: Is the start of a line with 0 or more spaces
     # 2: The 'key' argument, 0 or more spaces, '=' character
     # #: Every character until the end of line
-    pattern="^ *\($2 *$ao\).*"
-    replacement="\1$3"
+    pattern="^\( *\)\($2 *$ao\)\(.*\)"
+    replacement="\1\2$3"
 fi
 
 
