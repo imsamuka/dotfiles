@@ -3,6 +3,7 @@ test -z $DISPLAY && echo "[set-wallpaper] Couldn't find a Display." && exit 1
 
 # Get the first argument if given else use "dark" by default
 QUERY=${1:-'dark'}
+QUERYPATH="$HOME/Images"
 
 
 
@@ -20,7 +21,7 @@ QUERY=${1:-'dark'}
 echo "[set-wallpaper] Searching for '$QUERY'..."
 
 RES=`\
-find -L ~/Images/Wallpapers -type f -regextype posix-extended \
+find -L $QUERYPATH -type f -regextype posix-extended \
 -regex "[^ ]*/$QUERY[A-z0-9_-]*\.(png|jpe?g|gif|tiff?|PNG|JPE?G|GIF|TIFF?)$" \
 -printf '%d\0%h\0%p\n' | \
 sort -t '\0' -n | \
