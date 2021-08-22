@@ -3,6 +3,8 @@
 # Append this to your .xinitrc or window manager autostart:
 # source $HOME/.config/myxorg.sh
 
+# Screen Layout
+# xrandr --output VGA1 --mode 1440x900 --rate 59.89 --right-of LVDS1 --output LVDS1 --mode 1366x768 --rate 60.00
 
 # Disable Blanking
 xset s off
