@@ -136,15 +136,19 @@
       <command>nemo</command></action>
     </keybind>
 
+
     <keybind key="Print"><action name="Execute">
-        <command>scrot -bs ~/Images/screenshot_%d_%m_%y_%H_%M_%S.png</command>
-      </action>
-    </keybind>
-    <keybind key="S-Print"><action name="Execute">
-        <command>scrot -cd 2 ~/Images/screenshot_%d_%m_%y_%H_%M_%S.png</command>
+            <command>flameshot gui</command>
       </action>
     </keybind>
 
+
+    <!--
+    <keybind key="S-Print"><action name="Execute">
+        <command>scrot -cd 2 ~/Images/PrintScreen/screenshot_%d_%m_%y_%H_%M_%S.png</command>
+      </action>
+    </keybind>
+    -->
 
 
 
