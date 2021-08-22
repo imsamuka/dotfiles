@@ -22,8 +22,19 @@ volctl &
 # ClipIt - System Tray Clipboard Manager
 clipit &
 
+# Flameshot - PrintScreen Manager
+flameshot &
+
 # Picom - Window Compositor
 # picom -b
 
 # Lead - Hot corners/sides
 # lead &
+
+
+##### User Programs #####
+
+qbittorrent &
+quiterss &
+
+
