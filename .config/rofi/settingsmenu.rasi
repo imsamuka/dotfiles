@@ -110,7 +110,9 @@ element-text {
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    font:							  "sans-serif 14";
+    font:							"sans-serif 14";
+	background-color: 				transparent;
+    text-color:       				inherit;
 }
 
 element selected {
