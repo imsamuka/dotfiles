@@ -34,7 +34,9 @@ flameshot &
 
 ##### User Programs #####
 
-qbittorrent &
-quiterss &
+if [[ -d /media/ArquivosGerais/Samuka ]]; then
+  qbittorrent &
+  #quiterss &
+fi
 
 
