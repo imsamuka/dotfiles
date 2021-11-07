@@ -219,7 +219,7 @@ set_visual() {
 
   # Set Wallpaper
   print_log "Setting Wallpaper..."
-  "$CUR_PATH/set-wallpaper.sh" "$NEW_MODE"
+  set-wallpaper "$NEW_MODE"
   case $? in
     1) notify "Failed to set wallpaper";;
     2) notify "No wallpapers found";;

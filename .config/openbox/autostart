@@ -4,4 +4,4 @@
 source $HOME/.config/Scripts/myxorg.sh
 
 # Initialize Visuals
-sh $HOME/.config/openbox/visual/visualctl.sh start &
+sh $HOME/.config/Scripts/visual/visualctl.sh start &
