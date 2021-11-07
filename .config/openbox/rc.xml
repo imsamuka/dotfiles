@@ -139,6 +139,11 @@
       <command>nemo</command></action>
     </keybind>
 
+    <keybind key="W-F3"><action name="Execute">
+      <startupnotify><enabled>true</enabled><name>notepadqq</name></startupnotify>
+      <command>notepadqq</command></action>
+    </keybind>
+
 
     <keybind key="Print"><action name="Execute">
             <command>flameshot gui</command>
