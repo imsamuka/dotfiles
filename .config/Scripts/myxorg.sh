@@ -17,10 +17,12 @@ numlockx
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
 # Volctl - System Tray Volume Control
-volctl &
+# volctl &
+# Being started on tint2ctl
 
 # ClipIt - System Tray Clipboard Manager
-clipit &
+# clipit &
+# Being started on tint2ctl
 
 # Flameshot - PrintScreen Manager
 flameshot &

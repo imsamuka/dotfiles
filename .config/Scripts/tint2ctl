@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+
+log(){
+  echo "[tint2ctl] $*"
+}
+
+
+start(){
+
+  with_log="$1"
+  log_(){
+    [[ -z $with_log ]] && return 0 || log $*
+  }
+
+  run_(){
+    if pgrep "^$1$" &> /dev/null;
+    then log_ "$1 already running.";
+    else log "Starting $1."; $1 &> /dev/null & disown; fi
+  }
+
+  run_ tint2
+  run_ volctl # System Tray Volume Control
+  run_ nm-applet  # System Tray Network Manager
+  run_ clipit  # System Tray Clipboard Manager
+}
+
+
+show(){
+  start
+
+  win_ids="$*"
+  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+
+  for win_id in $win_ids
+  do xdotool windowmap --sync $win_id
+  done
+}
+
+
+hide(){
+  win_ids="$*"
+  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+
+  for win_id in $win_ids
+  do xdotool windowunmap --sync $win_id
+  done
+}
+
+
+toggle(){
+
+  # If it is not running yet, Start it
+  pgrep '^tint2$' &> /dev/null || (
+    start
+    return
+  )
+
+  # Visible Tint2 Pids
+  visible_win_ids=$(xdotool search --onlyvisible --name '^tint2$')
+
+  win_ids="$*"
+  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+
+  if [[ -n $win_ids ]]; then
+    for win_id in $win_ids; do
+
+      # It is included on visible_win_ids - it is visible?
+      if [[ $visible_win_ids =~ "$win_id" ]];
+        then hide $win_id;
+        else show $win_id;
+      fi
+    done
+    return
+  fi
+}
+
+
+case $1 in
+  kill) killall tint2 -w;;
+  start) start with_log;;
+  restart) killall tint2 -w; start;;
+  refresh) killall -SIGUSR1 tint2;;
+  show) show ${*#$1};;
+  hide) hide ${*#$1};;
+  toggle|"") toggle ${*#$1};;
+
+  *)
+    log 'Invalid command.'
+    log 'Commands available: start, restart, refresh, show, hide, toggle, kill'
+    log 'Default Command: toggle'
+  esac

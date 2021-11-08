@@ -79,11 +79,11 @@ set_panel(){
   fi
 
   # Open Tint2
-  if [[ -f "$HOME/.config/tint2/$NEW_MODE.tint2rc" ]]
+  if [[ -z "false" && -f "$HOME/.config/tint2/$NEW_MODE.tint2rc" ]]
     then print_log "└─ Opening Tint2 with '$NEW_MODE.tint2rc'."
          tint2 -c "$HOME/.config/tint2/$NEW_MODE.tint2rc" &> /dev/null &
     else print_log "└─ Opening Tint2 with defaults."
-         tint2 &> /dev/null &
+         tint2ctl start
   fi
 }
 
