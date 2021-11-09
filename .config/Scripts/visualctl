@@ -3,7 +3,7 @@
 
 # Initialize variables and functions
 CUR_PATH=`dirname "$(readlink -f "$0")"`
-CUR_FILE="$CUR_PATH/current"
+CUR_FILE="$CUR_PATH/visualctl_profiles/current"
 CUR_MODE=`cat $CUR_FILE || echo dark`
 NOTIFYING=''
 
@@ -206,8 +206,8 @@ set_visual() {
   NEW_MODE=${1:?"Must provide visual mode name"}
     test "$NEW_MODE" == "$CUR_MODE"
   RESTARTING=$?
-  test -f "$CUR_PATH/$NEW_MODE" && \
-    source "$CUR_PATH/$NEW_MODE"
+  test -f "$CUR_PATH/visualctl_profiles/$NEW_MODE" && \
+    source "$CUR_PATH/visualctl_profiles/$NEW_MODE"
 
 
   # Logs
