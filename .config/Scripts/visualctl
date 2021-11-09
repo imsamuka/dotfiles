@@ -9,7 +9,7 @@ NOTIFYING=''
 
 
 print_log(){
-  echo "[visualctl] $1"
+  echo "[visualctl] $*"
 }
 notify(){
   NOTIFYING="${NOTIFYING}${1}\n"
@@ -204,8 +204,14 @@ set_visual() {
 
   # Initialize Variables
   NEW_MODE=${1:?"Must provide visual mode name"}
-    test "$NEW_MODE" == "$CUR_MODE"
-  RESTARTING=$?
+
+  if [ $NEW_MODE = 'current' ]; then
+    print_log "Forbidden visual mode."
+    return 1
+  fi
+
+  test "$NEW_MODE" == "$CUR_MODE"
+    RESTARTING=$?
   test -f "$CUR_PATH/visualctl_profiles/$NEW_MODE" && \
     source "$CUR_PATH/visualctl_profiles/$NEW_MODE"
 
