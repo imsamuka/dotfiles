@@ -502,15 +502,19 @@
   </mouse>
   <applications>
 
-          <!--
-
-    <application name="termite">
-      <position force="yes">
-        <x>center</x>
-        <y>center</y>
-      </position>
-      <focus>yes</focus>
+    <application name="st">
+      <decor>no</decor>
     </application>
+
+    <application role="PictureInPicture">
+      <decor>no</decor>
+    </application>
+
+    <application class="mpv">
+      <decor>no</decor>
+    </application>
+
+    <!--
 
     <application name="nemo">
       <position force="yes">
@@ -529,13 +533,6 @@
       <maximized>yes</maximized>
     </application>
 
-          -->
-
-    <application role="PictureInPicture">
-      <decor>no</decor>
-    </application>
-
-    <!--
   # this is an example with comments through out. use these to make your
   # own rules, but without the comments of course.
   # you may use one or more of the name/class/role/title/type rules to specify
