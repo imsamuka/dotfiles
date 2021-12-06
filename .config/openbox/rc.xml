@@ -143,8 +143,8 @@
     <!-- Keybindings for running applications -->
 
     <keybind key="W-F1 W-S-Return"><action name="Execute">
-        <startupnotify><enabled>true</enabled><name>termite</name></startupnotify>
-        <command>termite --title=Termite</command></action>
+        <startupnotify><enabled>true</enabled><name>st</name></startupnotify>
+        <command>st</command></action>
     </keybind>
 
     <keybind key="W-F2"><action name="Execute">
