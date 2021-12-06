@@ -73,7 +73,7 @@ set_theme(){
 set_panel(){
 
   # Kill Tint2
-  if killall tint2 &> /dev/null;
+  if tint2ctl kill &> /dev/null;
     then print_log "├─ Restarting Tint2...";
     else print_log "├─ Starting Tint2...";
   fi
