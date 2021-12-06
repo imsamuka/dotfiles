@@ -512,6 +512,7 @@
 
     <application name="st">
       <decor>no</decor>
+      <size><width>50%</width><height>50%</height></size>
     </application>
 
     <application role="PictureInPicture">
