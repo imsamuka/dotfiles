@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+# Quick Refresh Everything
+
+# Refresh Fonts
+fc-cache &
+
+# Refresh Termite
+killall -USR1 termite &
+
+# Refresh Tint2
+killall -SIGUSR1 tint2 &
+
+# Refresh Picom
+(
+killall -w picom && picom -b &> /dev/null
+) &
+
+# Refresh Window Manager
+openbox --reconfigure &
+
+# Refresh xsettingsd / GTK
+(
+killall -w xsettingsd
+xsettingsd &> /dev/null
+) &
+
+# Notify Users
+notify-send -u low -t 500 -i "$HOME/.icons/gladient/themer.png" "Refresh" &> /dev/null
