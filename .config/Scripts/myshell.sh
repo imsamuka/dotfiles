@@ -29,6 +29,7 @@ alias dots='git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 
 # Adding default options
 alias paru='paru --skipreview'
+alias less='less --chop-long-lines --use-color --mouse --wheel-lines=4'
 
 # Replacements
 alias ls="exa --no-time --header --icons --color=always --sort=name --group-directories-first"
