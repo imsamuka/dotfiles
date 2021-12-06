@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Search for a Xorg Display
 test -z $DISPLAY && echo "[set-wallpaper] Couldn't find a Display." && exit 1
