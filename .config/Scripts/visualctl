@@ -285,7 +285,7 @@ case $1 in
     test) set -x ;&
     toggle|"")
       [[ $CUR_MODE != *"dark"* ]] && set_visual dark
-      [[ $CUR_MODE != *"light"* ]] && set_visual light
+      # [[ $CUR_MODE != *"light"* ]] && set_visual light
     ;;
 
     # Option to Initialize it
