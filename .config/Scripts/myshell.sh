@@ -37,3 +37,9 @@ alias code='codium'
 
 # Simple Functions
 alias freecheck='free -thc 999999 -s 0.3 --si'
+alias dl-music='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 0'
+alias dl-podcast='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata'
+alias play-music='mpv --no-video'
+alias play-video='mpv'
+alias tor-update='sudo killall -HUP tor'
+
