@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+gpick -p & sleep 10 && kill $!
