@@ -283,13 +283,13 @@ case $1 in
 
     # Toggle between configured options
     test) set -x ;&
-    toggle|"")
+    toggle)
       [[ $CUR_PROFILE != *"dark"* ]] && set_visual dark
       [[ $CUR_PROFILE != *"light"* ]] && set_visual light
     ;;
 
     # Option to Initialize it
-    start|restart|refresh) set_visual "$CUR_PROFILE" ;;
+    start|restart|refresh|"") set_visual "$CUR_PROFILE" ;;
 
     # Choose any visual
     *) set_visual "$1" ;;
