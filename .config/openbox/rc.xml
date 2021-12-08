@@ -127,7 +127,7 @@
     <keybind key="W-h"><action name="Execute" ><command>hotplug_monitor</command></action></keybind>
     <keybind key="W-b"><action name="Execute" ><command>st -e btop</command></action></keybind>
     <keybind key="W-Escape"><action name="Execute" ><command>powermenu</command></action></keybind>
-    <keybind key="W-Return"><action name="Execute" ><command>launcher_misc</command></action></keybind>
+    <keybind key="W-Return"><action name="Execute" ><command>appmenu</command></action></keybind>
 
     <!-- Keybindings for mouse macros -->
 
@@ -521,6 +521,14 @@
 
     <application class="mpv">
       <decor>no</decor>
+    </application>
+
+    <application name="xfce4-appfinder" type="normal">
+      <position><x>0</x><y>-0</y></position>
+      <size><width>default</width><height>100%</height></size>
+      <maximized>Vertical</maximized>
+      <decor>no</decor>
+      <focus>yes</focus>
     </application>
 
     <!--
