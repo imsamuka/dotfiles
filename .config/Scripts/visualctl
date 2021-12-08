@@ -4,7 +4,7 @@
 # Initialize variables and functions
 CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/visualctl_profiles/current"
-CUR_MODE=`cat $CUR_FILE || echo dark`
+CUR_PROFILE=`cat $CUR_FILE || echo dark`
 NOTIFYING=''
 
 
@@ -79,9 +79,9 @@ set_panel(){
   fi
 
   # Open Tint2
-  if [[ -z "false" && -f "$HOME/.config/tint2/$NEW_MODE.tint2rc" ]]
-    then print_log "└─ Opening Tint2 with '$NEW_MODE.tint2rc'."
-         tint2 -c "$HOME/.config/tint2/$NEW_MODE.tint2rc" &> /dev/null &
+  if [[ -z "false" && -f "$HOME/.config/tint2/$NEW_PROFILE.tint2rc" ]]
+    then print_log "└─ Opening Tint2 with '$NEW_PROFILE.tint2rc'."
+         tint2 -c "$HOME/.config/tint2/$NEW_PROFILE.tint2rc" &> /dev/null &
     else print_log "└─ Opening Tint2 with defaults."
          tint2ctl start
   fi
@@ -191,9 +191,9 @@ set_notification(){
   fi
 
   # Open Dunst
-  if [[ -f "$HOME/.config/dunst/$NEW_MODE.dunstrc" ]]
-    then print_log "└─ Opening Dunst with '$NEW_MODE.dunstrc'."
-         dunst -conf "$HOME/.config/dunst/$NEW_MODE.dunstrc" &> /dev/null &
+  if [[ -f "$HOME/.config/dunst/$NEW_PROFILE.dunstrc" ]]
+    then print_log "└─ Opening Dunst with '$NEW_PROFILE.dunstrc'."
+         dunst -conf "$HOME/.config/dunst/$NEW_PROFILE.dunstrc" &> /dev/null &
     else print_log "└─ Opening Dunst with defaults."
          dunst &> /dev/null &
   fi
@@ -203,29 +203,29 @@ set_notification(){
 set_visual() {
 
   # Initialize Variables
-  NEW_MODE=${1:?"Must provide visual mode name"}
+  NEW_PROFILE=${1:?"Must provide visual profile name"}
 
-  if [ $NEW_MODE = 'current' ]; then
-    print_log "Forbidden visual mode."
+  if [ $NEW_PROFILE = 'current' ]; then
+    print_log "Forbidden visual profile."
     return 1
   fi
 
-  test "$NEW_MODE" == "$CUR_MODE"
+  test "$NEW_PROFILE" == "$CUR_PROFILE"
     RESTARTING=$?
-  test -f "$CUR_PATH/visualctl_profiles/$NEW_MODE" && \
-    source "$CUR_PATH/visualctl_profiles/$NEW_MODE"
+  test -f "$CUR_PATH/visualctl_profiles/$NEW_PROFILE" && \
+    source "$CUR_PATH/visualctl_profiles/$NEW_PROFILE"
 
 
   # Logs
   if [ $RESTARTING == 0 ];
-    then print_log "Restarting visuals from '$CUR_MODE'";
-    else print_log "Changing visuals from '$CUR_MODE' to '$NEW_MODE'";
+    then print_log "Restarting visuals from '$CUR_PROFILE'";
+    else print_log "Changing visuals from '$CUR_PROFILE' to '$NEW_PROFILE'";
   fi
 
 
   # Set Wallpaper
   print_log "Setting Wallpaper..."
-  set-wallpaper "$NEW_MODE"
+  set-wallpaper "$NEW_PROFILE"
   case $? in
     1) notify "Failed to set wallpaper";;
     2) notify "No wallpapers found";;
@@ -260,12 +260,12 @@ set_visual() {
 
   # Notify Results to User
   print_log "Notifying user..."
-  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_MODE^} Theme enabled" "$NOTIFYING" &> /dev/null &
+  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_PROFILE^} Theme enabled" "$NOTIFYING" &> /dev/null &
 
 
   # Store the new visual value
   print_log "Saving the chosen visual..."
-  echo "$NEW_MODE" >| "$CUR_FILE"
+  echo "$NEW_PROFILE" >| "$CUR_FILE"
 
 
   # Exit
@@ -284,12 +284,12 @@ case $1 in
     # Toggle between configured options
     test) set -x ;&
     toggle|"")
-      [[ $CUR_MODE != *"dark"* ]] && set_visual dark
-      # [[ $CUR_MODE != *"light"* ]] && set_visual light
+      [[ $CUR_PROFILE != *"dark"* ]] && set_visual dark
+      [[ $CUR_PROFILE != *"light"* ]] && set_visual light
     ;;
 
     # Option to Initialize it
-    start|restart|refresh) set_visual "$CUR_MODE" ;;
+    start|restart|refresh) set_visual "$CUR_PROFILE" ;;
 
     # Choose any visual
     *) set_visual "$1" ;;
