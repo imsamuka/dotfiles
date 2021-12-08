@@ -14,7 +14,7 @@
 ### Sourcing
 
 # Functions
-source $HOME/.config/Scripts/functions.sh
+source $HOME/.scripts/functions.sh
 
 # asdf - Unified Version Management
 source $HOME/.asdf/asdf.sh
