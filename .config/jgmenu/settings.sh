@@ -17,7 +17,7 @@ Firewall Settings,gufw,gufw
 Refresh,refresh,gtk-refresh
 Display Hotplug,^term(hotplug_monitor),preferences-desktop-display-symbolic
 Wacom Hotplug,^term(hotplug_wacom),dcc_nav_wacom
-Icon Browser,icon-browser,gtk3-icon-browser
+Icon Browser,icon_browser,gtk3-icon-browser
 
 ^sep(  System)
 

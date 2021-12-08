@@ -260,7 +260,7 @@ set_visual() {
 
   # Notify Results to User
   print_log "Notifying user..."
-  notify-send -u low -i "$HOME/.icons/gladient/themer.png" "${NEW_PROFILE^} Theme enabled" "$NOTIFYING" &> /dev/null &
+  notify-send -u low -i $(icon_path -s , preferences-color) "${NEW_PROFILE^} Theme enabled" "$NOTIFYING" &> /dev/null &
 
 
   # Store the new visual value
