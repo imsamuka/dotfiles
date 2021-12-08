@@ -1,0 +1,53 @@
+tint2_look = 1
+verbosity = 0
+monitor = 0
+stay_alive = 0
+persistent = 0
+hide_on_startup = 0
+terminal_exec = st
+
+csv_cmd = sh ~/.config/jgmenu/settings.sh
+
+font = Open Sans 10
+icon_theme = Papirus
+icon_size = 20
+icon_text_spacing = 10
+icon_norm_alpha = 80
+icon_sel_alpha = 100
+
+hover_delay = 1
+columns = 1
+arrow_string = ➜
+# arrow_width = 15
+tabs = 0
+sep_height = 0
+# sep_halign = left
+sep_markup = font="Fira Code Nerd Font 10" weight="bold"
+
+
+# (fixed | pointer | center | ipc)
+position_mode = fixed
+# (left | center | right)
+menu_halign = right
+# (top | center | bottom)
+menu_valign = bottom
+menu_margin_x = 0
+menu_margin_y = 0
+menu_radius = 0
+menu_border = 0
+menu_width = 250
+menu_padding_top = 20
+menu_padding_right = 20
+menu_padding_bottom = 20
+menu_padding_left = 20
+# (static | dynamic)
+menu_height_mode = dynamic
+# (none | top | right | bottom | left | top_left | top_right | bottom_left | bottom_right )
+menu_gradient_pos = none
+
+item_margin_x = 0
+item_margin_y = 0
+item_padding_x = 10
+item_height = 40
+item_radius = 0
+item_border = 1

@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+settingsmenu --checkout=exit --center
