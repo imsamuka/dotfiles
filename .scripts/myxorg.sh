@@ -33,6 +33,8 @@ flameshot &
 # Lead - Hot corners/sides
 # lead &
 
+# xsettingsd syncing with gtk2rc hack
+sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/sync_xsettingsd.sh & disown' &
 
 ##### User Programs #####
 

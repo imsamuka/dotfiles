@@ -21,8 +21,7 @@ openbox --reconfigure &
 
 # Refresh xsettingsd / GTK
 (
-killall -w xsettingsd
-xsettingsd &> /dev/null
+killall -HUP xsettingsd || xsettingsd &> /dev/null
 ) &
 
 # Notify Users
