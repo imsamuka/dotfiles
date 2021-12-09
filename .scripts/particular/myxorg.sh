@@ -34,7 +34,7 @@ flameshot &
 # lead &
 
 # xsettingsd syncing with gtk2rc hack
-sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/sync_xsettingsd.sh & disown' &
+sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/particular/sync_xsettingsd.sh & disown' &
 
 ##### User Programs #####
 

@@ -1,2 +1,5 @@
 #!/usr/bin/sh
-jgmenu --config-file="$HOME/.config/jgmenu/settings.jgmenurc" $*
+jgmenu \
+--config-file="$HOME/.config/jgmenu/settings.jgmenurc" \
+--csv-cmd="sh $HOME/.scripts/particular/settings.sh" \
+$*

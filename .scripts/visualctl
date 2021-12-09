@@ -15,7 +15,7 @@ notify(){
   NOTIFYING="${NOTIFYING}${1}\n"
 }
 change_config(){
-  "$CUR_PATH/change_config.sh" "$@"
+  "$HOME/.scripts/particular/change_config.sh" "$@"
 }
 
 
