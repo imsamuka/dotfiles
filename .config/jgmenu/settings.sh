@@ -4,9 +4,11 @@ uptime=$(uptime -p | sed -e 's/up //')
 
 echo '
 
+^sep(  Settings)
+
 LxAppearance (GTK),lxappearance,gtk3-demo
 Qt5 Settings,qt5ct,QtIcon
-Openbox Theme,obconf,obconf
+Openbox Settings,obconf,obconf
 Tint2 Settings,tint2conf,tint2conf
 Display Settings,arandr,system-config-display
 Applications Settings,ezame,ezame
