@@ -11,6 +11,7 @@
 ```bash
 # Needed
 sudo pacman -S --needed base base-devel openbox tint2 jgmenu dunst feh
+paru -S obmenu-generator
 
 # Optional (with paru for AUR)
 paru -S --needed \
