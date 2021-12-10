@@ -4,4 +4,4 @@
 source $HOME/.scripts/particular/myxorg.sh
 
 # Initialize Visuals
-sh $HOME/.scripts/visualctl start &
+sh $HOME/.scripts/visualctl &

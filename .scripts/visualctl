@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 
-# Initialize variables and functions
 CUR_PATH=`dirname "$(readlink -f "$0")"`
 CUR_FILE="$CUR_PATH/visualctl_profiles/current"
 CUR_PROFILE=`cat $CUR_FILE || echo dark`
@@ -18,13 +17,41 @@ change_config(){
   "$HOME/.scripts/particular/change_config.sh" "$@"
 }
 
+set_visual(){
 
-set_theme(){
+  NEW_PROFILE=${1:?"Must provide visual profile name"}
+
+  if [ $NEW_PROFILE = 'current' ]; then
+    print_log "Forbidden visual profile."
+    return 1
+  fi
+
+  if [[ "$NEW_PROFILE" == "$CUR_PROFILE" ]];
+    then print_log "Restarting visuals from '$CUR_PROFILE'";
+    else print_log "Changing visuals from '$CUR_PROFILE' to '$NEW_PROFILE'";
+  fi
+
+  # Store the new visual profile
+  print_log "Saving the chosen visual profile..."
+  echo "$NEW_PROFILE" >| "$CUR_FILE"
+
+  notify "Changed Visual Profile to '$NEW_PROFILE'"
+  CUR_PROFILE="$NEW_PROFILE"
+
+  # There's something to change?
+  if [[ -f "$CUR_PATH/visualctl_profiles/$CUR_PROFILE" ]];
+    then source "$CUR_PATH/visualctl_profiles/$CUR_PROFILE"
+    else
+      print_log "Visual profile '$CUR_PROFILE' not found."
+      notify "Visual profile '$CUR_PROFILE' not found."
+      return 0
+  fi
 
   # Initialize Local Variables
   local GTK2_CONFIG="$HOME/.gtkrc-2.0"
   local GTK3_CONFIG="$HOME/.config/gtk-3.0/settings.ini"
   local XSETTINGSD_CONFIG="$HOME/.xsettingsd"
+  local XRESOURCES_CONFIG="$HOME/.Xresources"
 
 
   # Set Theme
@@ -34,9 +61,9 @@ set_theme(){
          -d "$HOME/.themes/$NEW_THEME" ]];
     then print_log "├─ Applying Theme '$NEW_THEME'.";
 
+      sed -i '2s_Net/ThemeName.*_Net/ThemeName "'"$NEW_THEME"'"_' $XSETTINGSD_CONFIG
       change_config "$GTK2_CONFIG" "gtk-theme-name" "\"$NEW_THEME\""
       change_config "$GTK3_CONFIG" "gtk-theme-name" "$NEW_THEME"
-      sed -i '2s_Net/ThemeName.*_Net/ThemeName "'"$NEW_THEME"'"_' $XSETTINGSD_CONFIG
 
     else
       print_log "├─ Theme '$NEW_THEME' not found. No Changes."
@@ -51,9 +78,9 @@ set_theme(){
          -d "$HOME/.icons/$NEW_ICONS" ]];
     then print_log "├─ Applying Icons '$NEW_ICONS'.";
 
+      sed -i '1s_Net/IconThemeName.*_Net/IconThemeName "'"$NEW_ICONS"'"_' $XSETTINGSD_CONFIG
       change_config "$GTK2_CONFIG" "gtk-icon-theme-name" "\"$NEW_ICONS\""
       change_config "$GTK3_CONFIG" "gtk-icon-theme-name" "$NEW_ICONS"
-      sed -i '1s_Net/IconThemeName.*_Net/IconThemeName "'"$NEW_ICONS"'"_' $XSETTINGSD_CONFIG
 
     else
       print_log "├─ Icons '$NEW_ICONS' not found. No Changes."
@@ -61,78 +88,12 @@ set_theme(){
   fi
 
 
-  # Restart Xsettingsd
-  if killall xsettingsd &> /dev/null;
-    then print_log "└─ Restarting Xsettingsd...";
-    else print_log "└─ Starting Xsettingsd...";
-  fi
-  xsettingsd &> /dev/null &
-}
-
-
-set_panel(){
-
-  # Kill Tint2
-  if tint2ctl kill &> /dev/null;
-    then print_log "├─ Restarting Tint2...";
-    else print_log "├─ Starting Tint2...";
-  fi
-
-  # Open Tint2
-  if [[ -z "false" && -f "$HOME/.config/tint2/$NEW_PROFILE.tint2rc" ]]
-    then print_log "└─ Opening Tint2 with '$NEW_PROFILE.tint2rc'."
-         tint2 -c "$HOME/.config/tint2/$NEW_PROFILE.tint2rc" &> /dev/null &
-    else print_log "└─ Opening Tint2 with defaults."
-         tint2ctl start
-  fi
-}
-
-
-set_terminal(){
-
-  # Initialize Local Variables
-  local TERMITE_CONFIG="$HOME/.config/termite/config"
-  local XRESOURCES_CONFIG="$HOME/.Xresources"
-  local BASHRC="$HOME/.bashrc"
-
-
-  # Termite
-  if [[ -f "$TERMITE_CONFIG" ]]
-    then
-      print_log "├─ Setting Termite Colors."
-      changed=1
-
-      [[ -n "$foreground" ]] \
-        && change_config "$TERMITE_CONFIG" "foreground" "$foreground" \
-        && changed=0
-
-      [[ -n "$background" ]] \
-        && change_config "$TERMITE_CONFIG" "background" "$background" \
-        && changed=0
-
-      for i in color{0..15}; do
-        [[ -n "${!i}" ]] \
-          && change_config "$TERMITE_CONFIG" "$i" "${!i}" \
-          && changed=0
-      done
-
-      # If any 'change_config' results in success, 'changed' will be 0
-      if [ $changed == 0 ];
-        then print_log "├─ Termite Colors changed."
-        else
-          print_log "├─ Termite Colors didn't change."
-          notify "Didn't change Termite colors."
-      fi
-  fi
-
-
-  # URxvt
+  # .Xresources Terminal Colors
   # To avoid problems, only lines like '*color3: ...' are changed
-  # 'URxvt.colorX' and 'URxvt*colorX' are ignored
   if [[ -f "$XRESOURCES_CONFIG" ]]
     then
-      print_log "├─ Setting URxvt Colors."
-      changed=1
+      print_log "├─ Setting .Xresources Colors."
+      local changed=1
 
       [[ -n "$foreground" ]] \
         && change_config -c "$XRESOURCES_CONFIG" "\*foreground" "$foreground" \
@@ -150,127 +111,50 @@ set_terminal(){
 
       # If any 'change_config' results in success, 'changed' will be 0
       if [ $changed == 0 ];
-        then print_log "├─ URxvt Colors changed."
+        then print_log "├─ .Xresources Colors changed."
         else
-          print_log "├─ URxvt Colors didn't change."
-          notify "Didn't change URxvt colors."
+          print_log "├─ .Xresources Colors didn't change."
+          notify "Didn't change .Xresources colors."
       fi
-
-      # Reload Xresources
-      xrdb "$XRESOURCES_CONFIG"
   fi
 
-
-  # Change OhMyBash Theme
-  if [[ -f "$BASHRC" && -n "$OSH_THEME" ]]; then
-    change_config -q "$BASHRC" "OSH_THEME" "$OSH_THEME"
-    if [ $? == 0 ];
-      then print_log "├─ OhMyBash Theme changed."
-      else
-        print_log "├─ OhMyBash Theme didn't change."
-        notify "Didn't change OhMyBash Theme."
-    fi
-  fi
-
-
-  # Refresh termite
-  print_log "└─ Refreshing Termite."
-  killall -USR1 termite &> /dev/null &
-
-  # Refresh running instances is not possible in vanilla URxvt
-  # A good solution: https://github.com/regnarg/urxvt-config-reload
+  return 0
 }
 
 
-set_notification(){
-
-  # Kill Dunst
-  if killall dunst &> /dev/null;
-    then print_log "├─ Restarting Dunst...";
-    else print_log "├─ Starting Dunst...";
-  fi
-
-  # Open Dunst
-  if [[ -f "$HOME/.config/dunst/$NEW_PROFILE.dunstrc" ]]
-    then print_log "└─ Opening Dunst with '$NEW_PROFILE.dunstrc'."
-         dunst -conf "$HOME/.config/dunst/$NEW_PROFILE.dunstrc" &> /dev/null &
-    else print_log "└─ Opening Dunst with defaults."
-         dunst &> /dev/null &
-  fi
-}
-
-
-set_visual() {
-
-  # Initialize Variables
-  NEW_PROFILE=${1:?"Must provide visual profile name"}
-
-  if [ $NEW_PROFILE = 'current' ]; then
-    print_log "Forbidden visual profile."
-    return 1
-  fi
-
-  test "$NEW_PROFILE" == "$CUR_PROFILE"
-    RESTARTING=$?
-  test -f "$CUR_PATH/visualctl_profiles/$NEW_PROFILE" && \
-    source "$CUR_PATH/visualctl_profiles/$NEW_PROFILE"
-
-
-  # Logs
-  if [ $RESTARTING == 0 ];
-    then print_log "Restarting visuals from '$CUR_PROFILE'";
-    else print_log "Changing visuals from '$CUR_PROFILE' to '$NEW_PROFILE'";
-  fi
+restart() {
 
 
   # Set Wallpaper
-  print_log "Setting Wallpaper..."
-  set-wallpaper "$NEW_PROFILE"
+  set-wallpaper "$CUR_PROFILE"
   case $? in
     1) notify "Failed to set wallpaper";;
     2) notify "No wallpapers found";;
   esac
 
-
-  # Set Theme
-  print_log "Setting Theme..."
-  set_theme
+  # Restart Panel
+  tint2ctl restart "$HOME/.config/tint2/$CUR_PROFILE.tint2rc"
 
 
-  # Set Panel
-  print_log "Setting Panel..."
-  set_panel
+  # Restart Dunst
+  print_log "Restarting Dunst..."
+  killall dunst &> /dev/null
 
+  if [[ -f "$HOME/.config/dunst/$CUR_PROFILE.dunstrc" ]]
+    then dunst -conf "$HOME/.config/dunst/$CUR_PROFILE.dunstrc" &> /dev/null &
+    else dunst &> /dev/null &
+  fi
 
-  # Set Terminal
-  print_log "Setting Terminal..."
-  set_terminal
-
-
-  # Set Notification Daemon
-  print_log "Setting Notification..."
-  set_notification
-
-
-  # Set Window Manager
-  print_log "Setting Window Manager..."
-  print_log "└─ Reconfiguring Openbox..."
-  openbox --reconfigure
-
-
-  # Notify Results to User
-  print_log "Notifying user..."
-  notify-send -u low -i $(icon_path -s , preferences-color) "${NEW_PROFILE^} Theme enabled" "$NOTIFYING" &> /dev/null &
-
-
-  # Store the new visual value
-  print_log "Saving the chosen visual..."
-  echo "$NEW_PROFILE" >| "$CUR_FILE"
+  # Refresh a bunch of things
+  refresh no_notify
 
 
   # Exit
   print_log "Visuals set successfully."
-  exit 0
+  notify-send -u low -i $(icon_path -s , preferences-color) \
+   "Restarted Visuals" "$NOTIFYING" &> /dev/null
+
+  return 0
 }
 
 
@@ -281,16 +165,16 @@ test -z $DISPLAY && print_log "Couldn't find a Display." && exit 1
 # Select the use case
 case $1 in
 
-    # Toggle between configured options
-    test) set -x ;&
+    # Toggle between 2 configured options
     toggle)
-      [[ $CUR_PROFILE != *"dark"* ]] && set_visual dark
-      [[ $CUR_PROFILE != *"light"* ]] && set_visual light
+      if [[ $CUR_PROFILE != *"dark"* ]]; then set_visual dark
+      elif [[ $CUR_PROFILE != *"light"* ]]; then set_visual light
+      fi
     ;;
 
-    # Option to Initialize it
-    start|restart|refresh|"") set_visual "$CUR_PROFILE" ;;
-
     # Choose any visual
-    *) set_visual "$1" ;;
+    set) set_visual "$2";;
 esac
+
+restart
+
