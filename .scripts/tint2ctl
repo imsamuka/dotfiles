@@ -8,18 +8,24 @@ log(){
 
 start(){
 
-  with_log="$1"
+  local with_log="$1"
+  local config_file="$2"
+
   log_(){
     [[ -z $with_log ]] && return 0 || log $*
   }
 
   run_(){
-    if pgrep "^$1$" &> /dev/null;
+    if pgrep "^$1" &> /dev/null;
     then log_ "$1 already running.";
-    else log "Starting $1."; $1 &> /dev/null & disown; fi
+    else log "Starting $1."; $* &> /dev/null & disown; fi
   }
 
-  run_ tint2
+  if [[ -f "$config_file" ]]
+    then run_ tint2 -c "$config_file"
+    else run_ tint2
+  fi
+
   run_ volctl # System Tray Volume Control
   run_ nm-applet  # System Tray Network Manager
   run_ clipit  # System Tray Clipboard Manager
@@ -78,8 +84,8 @@ toggle(){
 
 case $1 in
   kill) killall tint2 -w;;
-  start) start with_log;;
-  restart) killall tint2 -w; start;;
+  start) start 'with_log' $2;;
+  restart) killall tint2 -w; start '' $2;;
   refresh) killall -SIGUSR1 tint2;;
   show) show ${*#$1};;
   hide) hide ${*#$1};;
