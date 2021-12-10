@@ -1,28 +1,21 @@
 #!/usr/bin/env sh
 
-# Quick Refresh Everything
+_refresh(){
+  sh -c "${*#$1}; echo '[refresh] Refreshed $1'" & disown
+}
 
-# Refresh Fonts
-fc-cache &
+_refresh "Fonts" fc-cache
+_refresh "Tint2" tint2ctl refresh
+_refresh "Openbox" openbox --reconfigure
+_refresh "Xresources" xrdb ~/.Xresources
 
-# Refresh Termite
-killall -USR1 termite &
+_refresh "Picom" '(killall -w picom && picom -b &) &> /dev/null'
+_refresh "xsettingsd" '(killall -HUP xsettingsd || xsettingsd &) &> /dev/null'
 
-# Refresh Tint2
-killall -SIGUSR1 tint2 &
+sleep 1
 
-# Refresh Picom
-(
-killall -w picom && picom -b &> /dev/null
-) &
+[[ -z $1 ]] && \
+  notify-send -u low -t 700 -i $(icon_path -s , preferences-color) \
+   "Refreshed" &> /dev/null
 
-# Refresh Window Manager
-openbox --reconfigure &
-
-# Refresh xsettingsd / GTK
-(
-killall -HUP xsettingsd || xsettingsd &> /dev/null
-) &
-
-# Notify Users
-notify-send -u low -t 800 -i $(icon_path -s , preferences-color) "Refresh" &> /dev/null
+exit 0
