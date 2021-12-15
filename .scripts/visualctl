@@ -151,7 +151,7 @@ restart() {
 
   # Exit
   print_log "Visuals set successfully."
-  notify-send -u low -i $(icon_path -s , preferences-color) \
+  notify-send -u low -i $(icon_path preferences-color) \
    "Restarted Visuals" "$NOTIFYING" &> /dev/null
 
   return 0

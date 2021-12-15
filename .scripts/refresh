@@ -9,13 +9,13 @@ _refresh "Tint2" tint2ctl refresh
 _refresh "Openbox" openbox --reconfigure
 _refresh "Xresources" xrdb ~/.Xresources
 
-_refresh "Picom" '(killall -w picom && picom -b &) &> /dev/null'
+_refresh "Compositor" 'toggle_compositor refresh &> /dev/null'
 _refresh "xsettingsd" '(killall -HUP xsettingsd || xsettingsd &) &> /dev/null'
 
-sleep 1
+sleep 3
 
 [[ -z $1 ]] && \
-  notify-send -u low -t 700 -i $(icon_path -s , preferences-color) \
+  notify-send -u low -t 700 -i $(icon_path preferences-color) \
    "Refreshed" &> /dev/null
 
 exit 0

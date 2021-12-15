@@ -28,7 +28,7 @@ numlockx
 flameshot &
 
 # Picom - Window Compositor
-# picom -b
+toggle_compositor on &
 
 # Lead - Hot corners/sides
 # lead &
