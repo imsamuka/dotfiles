@@ -646,7 +646,7 @@
 
   <theme>
 
-    <name>Matcha-dark-azul</name>
+    <name>Qogir-smk</name>
     <titleLayout>NLIMC</titleLayout>
 
     <!--
@@ -661,7 +661,7 @@
     -->
 
     <keepBorder>yes</keepBorder>
-    <animateIconify>yes</animateIconify>
+    <animateIconify>no</animateIconify>
 
     <font place="ActiveWindow">
       <name>sans</name>
