@@ -6,6 +6,12 @@
 # Screen Layout
 # xrandr --output VGA1 --mode 1440x900 --rate 59.89 --right-of LVDS1 --output LVDS1 --mode 1366x768 --rate 60.00
 
+# Remap CapsLock to Escape
+# setxkbmap -option caps:escape
+
+# Change Xorg typematic delay and rate
+xset r rate 300 35
+
 # Disable Blanking
 xset s off
 xset -dpms
