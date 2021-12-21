@@ -159,20 +159,13 @@
     </keybind>
 
 
-    <keybind key="Print"><action name="Execute">
-            <command>flameshot gui</command>
-      </action>
-    </keybind>
+    <keybind key="Print"><action name="Execute"><command>flameshot gui</command></action></keybind>
+    <keybind key="C-Print"><action name="Execute"><command>flameshot launcher</command></action></keybind>
 
-
-    <!--
     <keybind key="S-Print"><action name="Execute">
-        <command>scrot -cd 2 ~/Images/PrintScreen/screenshot_%d_%m_%y_%H_%M_%S.png</command>
+            <command>flameshot screen -p ~/Images/PrintScreen</command>
       </action>
     </keybind>
-    -->
-
-
 
     <!-- Managing windows -->
 
