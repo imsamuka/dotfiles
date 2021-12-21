@@ -26,7 +26,7 @@ start(){
     else run_ tint2
   fi
 
-  run_ volctl # System Tray Volume Control
+  run_ volumeicon # System Tray Volume Control
   run_ nm-applet  # System Tray Network Manager
   run_ clipit  # System Tray Clipboard Manager
 }
