@@ -273,7 +273,6 @@
 # Otherwise the "#" and following would be interpreted as a comment.
 
 [urgency_low]
-    timeout = 10
     fullscreen = pushback
     # default_icon = ~/.config/dunst/normal.svg
     background = "#222222"
@@ -281,7 +280,6 @@
     highlight = "#30a3db"
 
 [urgency_normal]
-    timeout = 10
     fullscreen = pushback
     # default_icon = ~/.config/dunst/normal.svg
     background = "#151515"
@@ -297,6 +295,19 @@
     highlight = "#ffd453"
     frame_color = "#ff0000"
 
+[mpd]
+    appname = Music Player Daemon
+    background = "#0F082B"
+    frame_color = "#562EB2"
+    timeout = 5
+    history_ignore = yes
+    word_wrap = no
+
+[mpd_ignore_paused]
+    appname = Music Player Daemon
+    body = "*(Paused)"
+    history_ignore = yes
+    skip_display = yes
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
