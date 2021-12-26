@@ -15,6 +15,13 @@
 
 # Functions
 source $HOME/.scripts/particular/functions.sh
+function mpd-yt { youtube-dl -f bestaudio -g "$@" | mpc add; }
+function git-forked {
+	git remote -v # Show current
+	git remote -v remove origin
+	local nm="${1:-$(basename $(pwd))}"
+	git remote -v add -f origin git@github.com:imsamuka/$nm.git
+}
 
 # asdf - Unified Version Management
 source $HOME/.asdf/asdf.sh
