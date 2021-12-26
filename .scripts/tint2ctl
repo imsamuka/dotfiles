@@ -16,7 +16,7 @@ start(){
   }
 
   run_(){
-    if pgrep "^$1" &> /dev/null;
+    if pgrep "^$1( |$)" &> /dev/null;
     then log_ "$1 already running.";
     else log "Starting $1."; $* &> /dev/null & disown; fi
   }
@@ -57,7 +57,7 @@ hide(){
 toggle(){
 
   # If it is not running yet, Start it
-  pgrep '^tint2$' &> /dev/null || (
+  pgrep '^tint2( |$)' &> /dev/null || (
     start
     return
   )
