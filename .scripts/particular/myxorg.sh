@@ -19,24 +19,19 @@ xset -dpms
 # Enable Numlock (to use numbers)
 numlockx
 
-# Enable Graphical Authentication Agent
+# Graphical Authentication Agent
 /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
 
-# Volctl - System Tray Volume Control
-# volctl &
-# Being started on tint2ctl
+# Clipboard Manager
+clipmenud &
 
-# ClipIt - System Tray Clipboard Manager
-# clipit &
-# Being started on tint2ctl
-
-# Flameshot - PrintScreen Manager
+# ScreenShot Manager
 flameshot &
 
-# Picom - Window Compositor
+# Window Compositor
 toggle_compositor on &
 
-# Lead - Hot corners/sides
+# Hot corners/sides
 # lead &
 
 # xsettingsd syncing with gtk2rc hack

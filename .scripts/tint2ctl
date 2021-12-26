@@ -28,7 +28,6 @@ start(){
 
   run_ volumeicon # System Tray Volume Control
   run_ nm-applet  # System Tray Network Manager
-  run_ clipit  # System Tray Clipboard Manager
 }
 
 
