@@ -20,6 +20,9 @@ source $HOME/.scripts/particular/functions.sh
 source $HOME/.asdf/asdf.sh
 source $HOME/.asdf/completions/asdf.bash
 
+# Tab completion
+complete -c man which tldr cheat bro
+complete -cf sudo doas entr
 
 
 ### Aliases
@@ -41,5 +44,5 @@ alias dl-music='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-fo
 alias dl-podcast='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata'
 alias play-music='mpv --no-video'
 alias play-video='mpv'
-alias tor-update='sudo killall -HUP tor'
+alias tor-update='doas killall -HUP tor'
 
