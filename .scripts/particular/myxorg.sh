@@ -34,6 +34,15 @@ toggle_compositor on &
 # Hot corners/sides
 # lead &
 
+# Music Player Deamon
+(
+mpd
+mpDris2 &
+) &
+
+# Hotkey Daemon
+sxhkd &
+
 # xsettingsd syncing with gtk2rc hack
 sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/particular/sync_xsettingsd.sh & disown' &
 
