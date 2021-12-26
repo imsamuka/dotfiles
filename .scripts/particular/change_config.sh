@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/sh
 
 
 # Set Variables
@@ -10,7 +10,7 @@ NC='\x1b[0m' # No Color
 
 # Usage Help Function
 usage(){
-  printf "Usage: $0 [options] Path Key Value
+  printf "Usage: %s [options] Path Key Value
 
   Info    It will return error code 5 if not found anything to change.
 
@@ -19,7 +19,7 @@ usage(){
     -q    assign in quotes (like XML, HTML tag properties). Only one assignment per line.
     -c    use colon as assignment operator instead of '=' character.
     -t    only show what would be exchanged, without changes
-"  1>&2
+" "$0" 1>&2
   exit 0
 }
 
@@ -41,14 +41,14 @@ shift $((OPTIND -1))
 
 
 # Check argument quantity
-if [[ $# -ne 3 ]]; then
+if [ $# -ne 3 ]; then
   echo "[change_config] Must have 3 arguments. Use -h to show usage."
   exit 1
 fi
 
 
 # Set 'pattern', 'replacement' and 'highlight'
-if [[ "$quotes" == 1 ]];
+if [ "$quotes" = 1 ];
   then
 
     # Matching
@@ -72,7 +72,7 @@ fi
 
 
 # Execute test or changes
-if [[ "$testing" == 1 ]];
-  then sed -s '/'"${pattern}"'/,${s/'"${pattern}"'/'${highlight}${NC}'/;b};$q5' $1
-  else sed -i -s '/'"${pattern}"'/,${s//'"${replacement}"'/;b};$q5' $1
+if [ "$testing" = 1 ];
+  then sed -s "/${pattern}"'/,${s/'"${pattern}/${highlight}${NC}"'/;b};$q5' "$1"
+  else sed -i -s "/${pattern}"'/,${s//'"${replacement}"'/;b};$q5' "$1"
 fi

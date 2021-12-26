@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Search for a Xorg Display
-test -z $DISPLAY && echo "[set-wallpaper] Couldn't find a Display." && exit 1
+test -z "$DISPLAY" && echo "[set-wallpaper] Couldn't find a Display." && exit 1
 
 # Get the first argument if given else use "dark" by default
 QUERY=${1:-'dark'}
@@ -22,17 +22,17 @@ QUERYPATH="$HOME/Images"
 #   I think this regex is TOO much, but i couldn't find better a alternative
 echo "[set-wallpaper] Searching for '$QUERY'..."
 
-RES=`\
-find -L $QUERYPATH -type f -regextype posix-extended \
--regex "[^ ]*/$QUERY[A-z0-9_-]*\.(png|jpe?g|gif|tiff?|PNG|JPE?G|GIF|TIFF?)$" \
+RES=$(\
+find -L "$QUERYPATH" -type f -regextype posix-extended \
+-regex "[^ ]*/${QUERY}[A-z0-9_-]*\.(png|jpe?g|gif|tiff?|PNG|JPE?G|GIF|TIFF?)$" \
 -printf '%d\0%h\0%p\n' | \
 sort -t '\0' -n | \
-awk -F '\0' '{print $3}'`
+awk -F '\0' '{print $3}')
 
 
 
 # Exit if found nothing
-if [[ -z "$RES" ]]; then
+if [ -z "$RES" ]; then
   echo "[set-wallpaper] No files found starting with '$QUERY' in ~/Images/Wallpapers/**"
   exit 2
 fi
@@ -42,17 +42,17 @@ fi
 # Logs
 echo "[set-wallpaper] Found these images:"
 
-[[ -x "$(command -v exa)" ]] \
-  && echo "$RES" | xargs exa -al --no-time --icons --color=always \
-  || echo "$RES" | xargs ls -Alf --color=always
+if [ -x "$(command -v exa)" ];
+  then echo "$RES" | xargs exa -al --no-time --icons --color=always
+  else echo "$RES" | xargs ls -Alf --color=always
+fi
 
 echo "[set-wallpaper] Setting Wallpapers..."
 
 
 
 # Put them in order as backgrounds - Each one will be in a monitor
-feh --bg-fill --no-fehbg $RES
-if [ $? == 0 ];
+if feh --bg-fill --no-fehbg $RES
   then echo "[set-wallpaper] Wallpapers set successfully."
   else echo "[set-wallpaper] Failed setting wallpapers."
        exit 1

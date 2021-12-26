@@ -2,4 +2,4 @@
 jgmenu \
 --config-file="$HOME/.config/jgmenu/settings.jgmenurc" \
 --csv-cmd="sh $HOME/.scripts/particular/jgmenu_settings.sh" \
-$*
+"$@"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 L_ICON="list-remove-all"
 P_ICON="player_play"

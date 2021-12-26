@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 gtk_variables=(
 	"gtk-cursor-theme-name"

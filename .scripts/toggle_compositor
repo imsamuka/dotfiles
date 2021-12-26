@@ -1,25 +1,25 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 # Search for a Xorg Display
-test -z $DISPLAY && echo "Couldn't find a Display." && exit 1
+test -z "$DISPLAY" && echo "Couldn't find a Display." && exit 1
 
 # comp_cmd='xcompmgr -cCfF -o.80 -r11 -t-13 -l-13 -D2'
 comp_cmd='picom -cf -o.80 -r11 -t-9 -l-9 -D2 -i.95 -e.85 -m1.0'
 was_open=''
 
-if killall -w ${comp_cmd%% *} &> /dev/null; then
+if killall -w "${comp_cmd%% *}" 2> /dev/null; then
   echo "Killed Compositor."
   was_open='true'
 fi
 
-if [[ $1 == refresh ]]; then
-  if [[ -z $was_open ]]; # Invert
+if [ "$1" = refresh ]; then
+  if [ -z $was_open ]; # Invert
     then was_open='true'
     else was_open=''
   fi
 fi
 
-if [[ $1 != off && ($1 == on || -z $was_open) ]];
+if [ "$1" != off ] && [ "$1" = on ] || [ -z "$was_open" ];
   then echo "Compositor will start."; $comp_cmd & disown
   else echo "Compositor remains killed."
 fi

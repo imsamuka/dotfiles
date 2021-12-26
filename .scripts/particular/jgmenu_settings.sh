@@ -30,7 +30,7 @@ Wacom Hotplug,^term(hotplug_wacom),dcc_nav_wacom
 Icon Browser,icon_browser,gtk3-icon-browser
 
 ^tag(exit)
-"""^sep(   '$uptime')"""
+"""^sep(   '"$uptime"')"""
 Shutdown,systemctl poweroff,system-shutdown
 Reboot,systemctl reboot,system-reboot
 Hibernate,systemctl hybrid-sleep,system-hibernate

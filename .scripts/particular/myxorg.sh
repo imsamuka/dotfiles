@@ -48,7 +48,7 @@ sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/particular/sync_xsettingsd.sh & d
 
 ##### User Programs #####
 
-if [[ -d /media/ArquivosGerais/Samuka ]]; then
+if [ -d /media/ArquivosGerais/Samuka ]; then
   qbittorrent &
   #quiterss &
 fi

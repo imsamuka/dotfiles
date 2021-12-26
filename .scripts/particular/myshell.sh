@@ -1,31 +1,23 @@
 # This file is expected to run everytime a shell is instantiated
 # This is made in case i switch shells
-# Append this to your .bashrc:
-# source $HOME/.config/myshell.sh
-
-
-# Theming
-[[ $OSH_THEME == "brunton" ]] && prompt() {
-  PS1="${white}${background_blue} \w ${blue}${reset_color}${normal}$(is_vim_shell) "
-}
 
 
 
 ### Sourcing
 
 # Functions
-source $HOME/.scripts/particular/functions.sh
-function mpd-yt { youtube-dl -f bestaudio -g "$@" | mpc add; }
-function git-forked {
+. "$HOME/.scripts/particular/functions.sh"
+mpd_yt () { youtube-dl -f bestaudio -g "$@" | mpc add; }
+git_forked () {
 	git remote -v # Show current
 	git remote -v remove origin
-	local nm="${1:-$(basename $(pwd))}"
-	git remote -v add -f origin git@github.com:imsamuka/$nm.git
+	local nm="${1:-$(basename "$(pwd)")}"
+	git remote -v add -f origin git@github.com:imsamuka/"$nm".git
 }
 
 # asdf - Unified Version Management
-source $HOME/.asdf/asdf.sh
-source $HOME/.asdf/completions/asdf.bash
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
 
 # Tab completion
 complete -c man which tldr cheat bro
