@@ -1,7 +1,7 @@
 # These things are run when an Openbox X Session is started.
 
 # My Xorg Unified Options
-. $HOME/.scripts/particular/myxorg.sh
+. $HOME/.xinitrc
 
 # Initialize Visuals
 $HOME/.scripts/visualctl &
