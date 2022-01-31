@@ -40,7 +40,7 @@ set_visual(){
 
   # There's something to change?
   if [[ -f "$CUR_PATH/visualctl_profiles/$CUR_PROFILE" ]];
-    then source "$CUR_PATH/visualctl_profiles/$CUR_PROFILE"
+    then . "$CUR_PATH/visualctl_profiles/$CUR_PROFILE"
     else
       print_log "Visual profile '$CUR_PROFILE' not found."
       notify "Visual profile '$CUR_PROFILE' not found."
@@ -126,11 +126,8 @@ restart() {
 
 
   # Set Wallpaper
-  set-wallpaper "$CUR_PROFILE"
-  case $? in
-    1) notify "Failed to set wallpaper";;
-    2) notify "No wallpapers found";;
-  esac
+  nitrogen --restore &> /dev/null &
+
 
   # Restart Panel
   tint2ctl restart "$HOME/.config/tint2/$CUR_PROFILE.tint2rc"
