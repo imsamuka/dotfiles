@@ -98,7 +98,7 @@
     # Set to 0 to disable.
     # A client can set the 'transient' hint to bypass this. See the rules
     # section for how to disable this if necessary
-    idle_threshold = 60
+    idle_threshold = 240
 
     ### Text ###
 
@@ -180,10 +180,12 @@
     min_icon_size = 0
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 48
+    max_icon_size = 0
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Papirus-Dark/48x48/actions/:/usr/share/icons/Papirus-Dark/48x48/apps/:/usr/share/icons/Papirus-Dark/48x48/devices/:/usr/share/icons/Papirus-Dark/48x48/emblems/:/usr/share/icons/Papirus-Dark/48x48/emotes/:/usr/share/icons/Papirus-Dark/48x48/mimetypes/:/usr/share/icons/Papirus-Dark/48x48/places/:/usr/share/icons/Papirus-Dark/48x48/status/
+    icon_theme = Papirus-Dark
+    enable_recursive_icon_lookup = true
+    icon_size = 48
 
     ### History ###
 
@@ -299,14 +301,19 @@
     appname = Music Player Daemon
     background = "#0F082B"
     frame_color = "#562EB2"
+    icon_size = 96
     timeout = 5
     history_ignore = yes
     word_wrap = no
 
+[mpd_volume]
+    appname = Music Player Daemon
+    summary = MPD Volume
+    icon_size = 24
+
 [mpd_ignore_paused]
     appname = Music Player Daemon
     body = "*(Paused)"
-    history_ignore = yes
     skip_display = yes
 
 # Every section that isn't one of the above is interpreted as a rules to
