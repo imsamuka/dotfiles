@@ -2,8 +2,38 @@
 # This is made in case i switch shells
 
 
+# Show Random Pokemon on colorful terminals
+[ $(tput colors) = 256 ] && pokemon-colorscripts -r 1-3 | tail -n +2
 
 ### Sourcing
+
+# oh-my-bash Scripts
+export OSH=$HOME/.config/oh-my-bash
+if [ -d "$OSH" ]; then
+
+	if [ $(tput colors) = 256 ]; then
+		OSH_THEME="powerline"
+	else
+		OSH_THEME="powerline-naked"
+		POWERLINE_PROMPT_CHAR=">"
+		POWERLINE_LEFT_SEPARATOR=">"
+		POWERLINE_CHAR_SEPARATOR="|"
+		POWERLINE_SCM_GIT_CHAR="@ "
+	fi
+
+	POWERLINE_PROMPT="scm cwd"
+	DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+	# completions=()
+	# aliases=()
+	# plugins=()
+
+	. $OSH/oh-my-bash.sh
+else
+	export PS1='\033[1;32m\w \033[1;90m>\033[0m '
+	# export PS1='\w > '
+fi
+
 
 # Functions
 . "$HOME/.scripts/particular/functions.sh"
@@ -30,6 +60,11 @@ complete -cf sudo doas entr
 alias dots='git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 
 # Adding default options
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias mkdir='mkdir -pv'
+alias wget='wget -c'
+alias grep='grep --color=auto'
 alias paru='paru --skipreview'
 alias less='less --chop-long-lines --use-color --mouse --wheel-lines=4'
 
