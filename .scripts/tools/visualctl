@@ -14,7 +14,7 @@ notify(){
   NOTIFYING="${NOTIFYING}${1}\n"
 }
 change_config(){
-  "$HOME/.scripts/particular/change_config.sh" "$@"
+  change_config.sh "$@"
 }
 
 set_visual(){

@@ -27,7 +27,7 @@ Refresh,refresh,gtk-refresh
 Toggle Compositor,toggle_compositor,compton
 Display Hotplug,^term(hotplug_monitor),preferences-desktop-display-symbolic
 Wacom Hotplug,^term(hotplug_wacom),dcc_nav_wacom
-Icon Browser,icon_browser,gtk3-icon-browser
+Icon Browser,icon_browser.py,gtk3-icon-browser
 
 ^tag(exit)
 """^sep(   '"$uptime"')"""
