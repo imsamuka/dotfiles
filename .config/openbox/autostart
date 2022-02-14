@@ -4,4 +4,4 @@
 . $HOME/.xinitrc
 
 # Initialize Visuals
-visualctl &
+visualctl norefresh &

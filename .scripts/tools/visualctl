@@ -142,8 +142,9 @@ restart() {
     else dunst &> /dev/null &
   fi
 
+
   # Refresh a bunch of things
-  refresh no_notify
+  [ "$1" = norefresh ] || refresh no_notify
 
 
   # Exit
@@ -173,5 +174,5 @@ case $1 in
     set) set_visual "$2";;
 esac
 
-restart
+restart "$@"
 

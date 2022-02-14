@@ -43,8 +43,12 @@ mpDris2 &
 # Hotkey Daemon
 sxhkd &
 
+# Xresources
+xrdb ~/.Xresources
+
 # xsettingsd syncing with gtk2rc hack
-sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/particular/sync_xsettingsd.sh & disown' &
+# sh -c 'echo ~/.gtkrc-2.0 | entr -np ~/.scripts/particular/sync_xsettingsd.sh & disown' &
+xsettingsd &
 
 ##### User Programs #####
 

@@ -10,7 +10,7 @@ _refresh "Openbox" openbox --reconfigure
 _refresh "Xresources" xrdb ~/.Xresources
 
 _refresh "Compositor" 'toggle_compositor refresh &> /dev/null'
-_refresh "xsettingsd" '(killall -HUP xsettingsd || xsettingsd &) &> /dev/null'
+_refresh "xsettingsd" 'killall -HUP xsettingsd &> /dev/null'
 
 sleep 3
 
