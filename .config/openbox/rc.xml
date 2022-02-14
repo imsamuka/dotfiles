@@ -122,6 +122,7 @@
     <keybind key="W-r"><action name="Execute"><command>refresh</command></action></keybind>
     <keybind key="W-S-r"><action name="Execute"><command>visualctl</command></action></keybind>
     <keybind key="W-backslash"><action name="Execute"><command>tint2ctl toggle</command></action></keybind>
+    <keybind key="W-S-backslash"><action name="Execute"><command>tint2ctl kill</command></action></keybind>
     <keybind key="W-c"><action name="Execute" ><command>pickcolor</command></action></keybind>
     <keybind key="W-b"><action name="Execute" ><command>st -e btop</command></action></keybind>
     <keybind key="W-Escape"><action name="Execute" ><command>menu_exit</command></action></keybind>

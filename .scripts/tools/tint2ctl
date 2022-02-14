@@ -21,7 +21,7 @@ start(){
     else log "Starting $1."; $* &> /dev/null & disown; fi
   }
 
-  if [[ -f "$config_file" ]]
+  if [ -f "$config_file" ]
     then run_ tint2 -c "$config_file"
     else run_ tint2
   fi
@@ -35,7 +35,7 @@ show(){
   start
 
   win_ids="$*"
-  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+  [ -z $win_ids ] && win_ids=$(xdotool search --name '^tint2$')
 
   for win_id in $win_ids
   do xdotool windowmap --sync $win_id
@@ -45,7 +45,7 @@ show(){
 
 hide(){
   win_ids="$*"
-  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+  [ -z $win_ids ] && win_ids=$(xdotool search --name '^tint2$')
 
   for win_id in $win_ids
   do xdotool windowunmap --sync $win_id
@@ -65,7 +65,7 @@ toggle(){
   visible_win_ids=$(xdotool search --onlyvisible --name '^tint2$')
 
   win_ids="$*"
-  [[ -z $win_ids ]] && win_ids=$(xdotool search --name '^tint2$')
+  [ -z $win_ids ] && win_ids=$(xdotool search --name '^tint2$')
 
   if [[ -n $win_ids ]]; then
     for win_id in $win_ids; do
@@ -80,11 +80,16 @@ toggle(){
   fi
 }
 
+kill_tint2(){
+  killall tint2 -w
+  killall volumeicon -w
+  killall nm-applet -w
+}
 
 case $1 in
-  kill) killall tint2 -w;;
-  start) start 'with_log' $2;;
-  restart) killall tint2 -w; start '' $2;;
+  kill) kill_tint2;;
+  start) start with_log $2;;
+  restart) kill_tint2; start '' $2;;
   refresh) killall -SIGUSR1 tint2;;
   show) show ${*#$1};;
   hide) hide ${*#$1};;
