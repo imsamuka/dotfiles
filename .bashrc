@@ -1,9 +1,15 @@
 # This file is expected to run everytime a shell is instantiated
-# This is made in case i switch shells
 
 
 # Show Random Pokemon on colorful terminals
-[ $(tput colors) = 256 ] && pokemon-colorscripts -r 1-3 | tail -n +2
+[ $(tput colors) = 256 ] &&
+[ "$PWD" = ~ ] && pokemon-colorscripts --no-title -r 1-3 && printf '\033[0m'
+
+# Fix CWD symlinks
+if [ "$PWD" = /media/ArquivosGerais/Samuka ];
+then cd ~/Samuka
+else cd ${PWD/#"/media/ArquivosGerais/Samuka"/~} 2> /dev/null
+fi
 
 ### Sourcing
 
@@ -13,6 +19,7 @@ if [ -d "$OSH" ]; then
 
 	if [ $(tput colors) = 256 ]; then
 		OSH_THEME="powerline"
+		true
 	else
 		OSH_THEME="powerline-naked"
 		POWERLINE_PROMPT_CHAR=">"
