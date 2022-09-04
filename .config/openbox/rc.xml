@@ -134,10 +134,10 @@
     <keybind key="W-KP_4"><action name="Execute" ><command>xdotool mousedown --clearmodifiers 1</command></action></keybind>
     <keybind key="W-KP_6"><action name="Execute" ><command>xdotool mousedown --clearmodifiers 3</command></action></keybind>
 
-    <keybind key="W-KP_7"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 25 1</command></action></keybind>
-    <keybind key="W-KP_9"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 25 3</command></action></keybind>
-    <keybind key="W-KP_1"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 100 1</command></action></keybind>
-    <keybind key="W-KP_3"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 100 3</command></action></keybind>
+    <keybind key="W-C-KP_4"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 25 1</command></action></keybind>
+    <keybind key="W-C-KP_6"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 25 3</command></action></keybind>
+    <keybind key="W-S-KP_4"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 100 1</command></action></keybind>
+    <keybind key="W-S-KP_6"><action name="Execute" ><command>xdotool click --clearmodifiers --repeat 99999999999 --delay 100 3</command></action></keybind>
 
     <keybind key="W-KP_5"><action name="Execute" ><command>killall xdotool</command></action></keybind>
 
@@ -285,10 +285,10 @@
       </action>
     </keybind>
 
-    <keybind key="W-KP_Multiply">
-      <action name="Execute"><command>tint2ctl hide</command></action>
+    <keybind key="W-w">
+      <action name="ToggleAlwaysOnTop"/>
       <action name="MoveResizeTo">
-        <x>36</x> <y>20</y> <width>1848</width> <height>1040</height>
+        <x>35</x> <y>21</y> <width>1848</width> <height>1037</height>
       </action>
     </keybind>
 
@@ -517,6 +517,15 @@
 
     <application class="mpv">
       <decor>no</decor>
+      <position force="no"><monitor>1</monitor></position>
+    </application>
+
+    <application class="vlc">
+      <position force="no"><monitor>1</monitor></position>
+    </application>
+
+    <application name="retroarch">
+      <position force="no"><monitor>1</monitor></position>
     </application>
 
     <application name="xfce4-appfinder" type="normal">
@@ -676,14 +685,14 @@
 
     <font place="MenuHeader">
       <name>sans</name>
-      <size>9</size>
-      <weight>normal</weight>
+      <size>14</size>
+      <weight>bold</weight>
       <slant>normal</slant>
     </font>
 
     <font place="MenuItem">
       <name>sans</name>
-      <size>9</size>
+      <size>13</size>
       <weight>normal</weight>
       <slant>normal</slant>
     </font>
