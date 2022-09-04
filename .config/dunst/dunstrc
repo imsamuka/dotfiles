@@ -16,7 +16,7 @@
     # This should be the case for almost all modern window managers.
     #
     # If is set to mouse or keyboard, the monitor option will be ignored.
-    follow = mouse
+    follow = none
 
     ### Geometry ###
 
@@ -142,7 +142,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<span size='large' weight='bold'>%s</span><span size='x-small' font_desc='monospace'> %n</span>\n%b"
+    format = "<span size='large' weight='bold'>%s</span><span size='small' font='monospace'> %p</span>\n%b"
 
     # Alignment of message text. left/center/right
     alignment = center
@@ -174,18 +174,13 @@
     # Align icons left/right/off
     icon_position = left
 
-    # Scale small icons up to this size, set to 0 to disable. Helpful
-    # for e.g. small files or high-dpi screens. In case of conflict,
-    # max_icon_size takes precedence over this.
-    min_icon_size = 0
-
-    # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 0
+    # Icon size
+    min_icon_size = 48
+    max_icon_size = 48
 
     # Paths to default icons.
     icon_theme = Papirus-Dark
     enable_recursive_icon_lookup = true
-    icon_size = 48
 
     ### History ###
 
@@ -275,14 +270,14 @@
 # Otherwise the "#" and following would be interpreted as a comment.
 
 [urgency_low]
-    fullscreen = pushback
+    fullscreen = show
     # default_icon = ~/.config/dunst/normal.svg
     background = "#222222"
     foreground = "#dddddd"
     highlight = "#30a3db"
 
 [urgency_normal]
-    fullscreen = pushback
+    fullscreen = show
     # default_icon = ~/.config/dunst/normal.svg
     background = "#151515"
     foreground = "#ffffff"
@@ -301,7 +296,8 @@
     appname = Music Player Daemon
     background = "#0F082B"
     frame_color = "#562EB2"
-    icon_size = 96
+    min_icon_size = 96
+    max_icon_size = 96
     timeout = 5
     history_ignore = yes
     word_wrap = no
@@ -309,12 +305,23 @@
 [mpd_volume]
     appname = Music Player Daemon
     summary = MPD Volume
-    icon_size = 24
+    max_icon_size = 24
 
-[mpd_ignore_paused]
-    appname = Music Player Daemon
-    body = "*(Paused)"
-    skip_display = yes
+
+[trackma]
+    appname = trackma
+    # background = "#0F082B"
+    # frame_color = "#562EB2"
+    min_icon_size = 96
+    max_icon_size = 96
+    # history_ignore = yes
+
+[trackma_common]
+    appname = trackma
+    icon = trackma
+    min_icon_size = 48
+    max_icon_size = 48
+
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
