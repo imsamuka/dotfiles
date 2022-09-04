@@ -4,7 +4,7 @@
 test -z "$DISPLAY" && echo "Couldn't find a Display." && exit 1
 
 # comp_cmd='xcompmgr -cCfF -o.80 -r11 -t-13 -l-13 -D2'
-comp_cmd='picom -cf -o.80 -r11 -t-9 -l-9 -D2 -i.95 -e.85 -m1.0'
+comp_cmd='picom -cf -o.80 -r11 -t-9 -l-9 -D2 -i.95 -e.85 --detect-client-opacity'
 was_open=''
 
 if killall -w "${comp_cmd%% *}" 2> /dev/null; then
