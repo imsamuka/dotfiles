@@ -13,6 +13,8 @@ fi
 
 ### Sourcing
 
+. "$HOME/.cargo/env"
+
 # oh-my-bash Scripts
 export OSH=$HOME/.config/oh-my-bash
 if [ -d "$OSH" ]; then
@@ -44,7 +46,7 @@ fi
 
 # Functions
 . "$HOME/.scripts/particular/functions.sh"
-mpd_yt () { youtube-dl -f bestaudio -g "$@" | mpc add; }
+mpd_yt () { yt-dlp -f bestaudio -g "$@" | mpc add; }
 git_forked () {
 	git remote -v # Show current
 	git remote -v remove origin
@@ -76,13 +78,13 @@ alias paru='paru --skipreview'
 alias less='less --chop-long-lines --use-color --mouse --wheel-lines=4'
 
 # Replacements
-alias ls="exa --no-time --header --icons --color=always --sort=name --group-directories-first"
+alias ls="exa --no-time --header --icons --color=auto --sort=name --group-directories-first"
 alias code='codium'
 
 # Simple Functions
 alias freecheck='free -thc 999999 -s 0.3 --si'
-alias dl-music='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 0'
-alias dl-podcast='youtube-dl -o '"'%(title)s.%(ext)s'"' --extract-audio --audio-format mp3 --embed-thumbnail --add-metadata'
+alias dl-music='yt-dlp -xo '"'%(playlist_index|)s%(playlist_index& |)s%(title)s.%(ext)s'"' --audio-format mp3 --embed-thumbnail --add-metadata --audio-quality 0'
+alias dl-podcast='yt-dlp -xo '"'%(title)s.%(ext)s'"' --audio-format mp3 --embed-thumbnail --add-metadata'
 alias play-music='mpv --no-video'
 alias play-video='mpv'
 alias tor-update='doas killall -HUP tor'
