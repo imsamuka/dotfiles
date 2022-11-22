@@ -511,6 +511,11 @@
       <size><width>50%</width><height>50%</height></size>
     </application>
 
+    <application title="btop">
+      <decor>no</decor>
+      <maximized>true</maximized>
+    </application>
+
     <application role="PictureInPicture">
       <decor>no</decor>
     </application>
