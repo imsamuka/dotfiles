@@ -54,6 +54,14 @@ git_forked () {
 	git remote -v add -f origin git@github.com:imsamuka/"$nm".git
 }
 
+myip () {
+   res=$(curl -s https://ip4.seeip.org)
+   echo -e "Your public IPv4 is: ${echo_bold_green} $res ${echo_normal}"
+   res=$(curl -s https://ip6.seeip.org)
+   echo -e "Your public IPv6 is: ${echo_bold_green} $res ${echo_normal}"
+}
+
+
 # asdf - Unified Version Management
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
@@ -88,4 +96,6 @@ alias dl-podcast='yt-dlp -xo '"'%(title)s.%(ext)s'"' --audio-format mp3 --embed-
 alias play-music='mpv --no-video'
 alias play-video='mpv'
 alias tor-update='doas killall -HUP tor'
+alias pa-rtp-load='pacmd unload-module module-rtp-send; pacmd load-module module-rtp-send source=rtp.monitor loop=0 port=5004 rate=48000 mtu=1024'
+alias smkphone='ssh 192.168.1.69 -p 8022'
 
