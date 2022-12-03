@@ -30,15 +30,12 @@ my $editor = $CONFIG->{editor};
 our $SCHEMA = [
 
     #          COMMAND                 LABEL              ICON
-    {item => ['st',               'Terminal',     'st']},
+    {item => ['st',               'Terminal',     'utilities-terminal']},
     {item => ['xdg-open .',       'File Manager', 'system-file-manager']},
     {item => ['xdg-open http://', 'Web Browser',  'firefox']},
     {item => ['notepadqq',        'Notepad',      'notepadqq']},
-    {item => ['xterm',            'Xterm',        'utilities-terminal']},
 
-    {sep => 'Menus'},
-
-    {beg => ['Categories', 'view-categories']},
+    {beg => ['Applications', 'app-launcher']},
       #        NAME            LABEL                ICON
       {cat => ['utility',     'Accessories', 'applications-utilities']},
       {cat => ['development', 'Development', 'applications-development']},
@@ -53,13 +50,33 @@ our $SCHEMA = [
       {cat => ['system',      'System',      'applications-system']},
     {end => undef},
 
-    {item => ['menu_apps',     'Applications', 'app-launcher']},
-    {item => ['menu_settings', 'Settings',     'applications-system']},
-    {item => ['menu_exit',     'Exit',         'system-shutdown']},
+    {sep => '  System'},
 
-    {sep => 'Openbox'},
+    {beg => ['Settings', 'applications-system']},
 
-    {beg => ['Generator', 'applications-engineering']},
+      {item => ["obconf",    "Openbox Settings",      "obconf"]},
+      {item => ["tint2conf", "Tint2 Settings",        "tint2conf"]},
+      {item => ["arandr",    "Display Settings",      "system-config-display"]},
+      {item => ["ezame",     "Applications Settings", "ezame"]},
+      {item => ["gufw",      "Firewall Settings",     "gufw"]},
+
+      {sep => '  Scripts'},
+
+      {item => ["st -t Backup -e tmux new-session -d '~/.scripts/particular/backup.sh; read' \; attach", "Backup", "grsync"]},
+      {item => ["st -t Upgrade -e tmux new-session -d 'paru -Syyu; read' \; attach", "Upgrade", "start-here-archlinux"]},
+      {item => ["toggle_compositor", "Toggle Compositor","compton"]},
+      {item => ["service_wrap mpd toggle mpd 'Music Player Daemon' --user", "Toggle MPD","mpd"]},
+      {item => ["service_wrap tor toggle tor", "Toggle Tor","tor"]},
+    {end => undef},
+
+
+    {beg => ['Openbox', 'window-duplicate']},
+      {item => ['openbox --reconfigure', 'Reconfigure', 'view-refresh-symbolic']},
+      {item => ['openbox --restart',     'Restart',     'system-restart-symbolic']},
+      {exit => ['Logout',  'system-log-out']},
+
+      {sep => '  Generator'},
+
       {item => ['obmenu-generator -d', 'Refresh cache', 'view-refresh']},
       {item => ['obmenu-generator -s -i -c', 'Generate Static Menu',  'accessories-text-editor']},
       {item => ['obmenu-generator -p -i',    'Generate Dynamic Menu', 'accessories-text-editor']},
@@ -67,8 +84,8 @@ our $SCHEMA = [
       {item => ["$editor ~/.config/obmenu-generator/config.pl", 'Edit Config', 'text-x-generic']},
     {end => undef},
 
-    {item => ['openbox --reconfigure', 'Reconfigure', 'view-refresh-symbolic']},
-    {item => ['openbox --restart',     'Restart',     'system-restart-symbolic']},
-    {exit => ['Logout',  'application-exit-symbolic']},
+    {item => ["systemctl poweroff",     "Shutdown",  "system-shutdown"]},
+    {item => ["systemctl reboot",       "Reboot",    "system-reboot"]},
+    #{item => ["systemctl hybrid-sleep", "Hibernate", "system-hibernate" ]},
 
 ]
