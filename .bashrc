@@ -13,7 +13,9 @@ fi
 
 ### Sourcing
 
-. "$HOME/.cargo/env"
+# asdf - Unified Version Management
+. /opt/asdf-vm/asdf.sh
+
 
 # oh-my-bash Scripts
 export OSH=$HOME/.config/oh-my-bash
@@ -62,10 +64,6 @@ myip () {
 }
 
 
-# asdf - Unified Version Management
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
-
 # Tab completion
 complete -c man which tldr cheat bro
 complete -cf sudo doas entr
@@ -77,7 +75,7 @@ complete -cf sudo doas entr
 alias dots='git --git-dir=$HOME/.config/dotfiles/ --work-tree=$HOME'
 
 # Adding default options
-alias cp='cp -iv'
+alias cp='cp -ivr'
 alias mv='mv -iv'
 alias mkdir='mkdir -pv'
 alias wget='wget -c'
